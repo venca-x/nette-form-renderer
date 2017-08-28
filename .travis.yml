@@ -1,28 +1,29 @@
 language: php
-
 php:
-  - 7.1
-  - 7.2
-  - nightly
+    - 7.1
+    - 7.2
 
-matrix:
-  allow_failures:
-    - php: nightly
-
-before_script:
-  - composer self-update
+before_install:
+    # turn off XDebug
+    - phpenv config-rm xdebug.ini || return 0
 
 install:
-  - composer install --no-interaction --prefer-source
+    - travis_retry composer install --no-progress --prefer-dist
 
 script:
-  - vendor/bin/tester tests -s
+    - vendor/bin/tester tests -s
 
 after_failure:
-  - for i in $(find ./tests -name \*.actual); do echo "--- $i"; cat $i; echo; echo; done
+    # Print *.actual content
+    - for i in $(find tests -name \*.actual); do echo "--- $i"; cat $i; echo; echo; done
 
 jobs:
     include:
+        -   env: title="Lowest Dependencies"
+            install:
+                - travis_retry composer update --no-progress --prefer-dist --prefer-lowest --prefer-stable
+
+
         -   stage: Code Standard Checker
             php: 7.1
             install:
@@ -30,10 +31,13 @@ jobs:
                 - travis_retry composer create-project nette/code-checker temp/code-checker ~2 --no-progress
                 # Install Nette Coding Standard
                 - travis_retry composer create-project nette/coding-standard temp/coding-standard --no-progress
-
+                # Install Grunt
+                - npm install -g grunt-cli; cd tests/netteForms; npm install; cd ../..
             script:
-                - php temp/code-checker/src/code-checker.php -d src -d tests --short-arrays --strict-types
-                - php temp/coding-standard/ecs check src tests --config temp/coding-standard/coding-standard-php71.neon
+                - php temp/code-checker/src/code-checker.php --short-arrays --strict-types
+                - php temp/coding-standard/ecs check src tests examples --config temp/coding-standard/coding-standard-php71.neon
+                - grunt --gruntfile=tests/netteForms/Gruntfile.js test
+
 
         -   stage: Code Coverage
             script:
@@ -42,5 +46,16 @@ jobs:
                 - wget https://github.com/satooshi/php-coveralls/releases/download/v1.0.1/coveralls.phar
                 - php coveralls.phar --verbose --config tests/.coveralls.yml
 
+
     allow_failures:
         -   stage: Code Coverage
+
+
+sudo: false
+
+cache:
+    directories:
+        - $HOME/.composer/cache
+
+notifications:
+    email: false
