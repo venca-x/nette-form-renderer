@@ -1,0 +1,31 @@
+{
+  "name": "venca/nette-form-renderer",
+  "description": "Nette form renderer (Twitter Bootstrap 4)",
+  "license": [
+    "MIT"
+  ],
+  "authors": [
+    {
+      "name": "vEnCa-X",
+      "email": "venca-x@seznam.cz"
+    }
+  ],
+  "require": {
+    "php": ">=7.1",
+    "nette/forms": "^3.0",
+    "nette/utils": "^3.0"
+  },
+  "require-dev": {
+    "nette/tester": "^2.0"
+  },
+  "conflict": {
+    "nette/forms": "<3.0",
+    "nette/utils": "<3.0"
+  },
+  "autoload": {
+    "classmap": [
+      "src/"
+    ]
+  },
+  "minimum-stability": "dev"
+}
