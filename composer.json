@@ -1,5 +1,5 @@
 {
-  "name": "venca/nette-form-renderer",
+  "name": "venca-x/nette-form-renderer",
   "description": "Nette form renderer (Twitter Bootstrap 4)",
   "license": [
     "MIT"
