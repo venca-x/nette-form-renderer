@@ -5,6 +5,6 @@
 [![Latest Unstable Version](https://poser.pugx.org/venca-x/nette-form-renderer/v/unstable)](https://packagist.org/packages/venca-x/nette-form-renderer)
 [![License](https://poser.pugx.org/venca-x/nette-form-renderer/license)](https://packagist.org/packages/venca-x/nette-form-renderer)
 
-Form renderer for Nenette - TwitterBootstrap v4
+Form renderer for Nette Forms - TwitterBootstrap v4
 
 Default is vertical form orientation.
