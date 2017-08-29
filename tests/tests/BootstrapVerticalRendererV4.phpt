@@ -29,6 +29,19 @@ class BootstrapVerticalRendererV4 extends Tester\TestCase
 
 		Assert::matchFile(__DIR__ . '/../expected/bootstrap-v4/form-vertical.html', (string) $form);
 	}
+
+	public function testVerticalTwoForm()
+	{
+		$form = $this->createBaseFormWithRenderer();
+
+		//vertical form
+		$renderer = $form->getRenderer();
+		$renderer->setFormVerticalOrientation();
+
+		$form->addText('name', 'Name:');
+
+		Assert::matchFile(__DIR__ . '/../expected/bootstrap-v4/form-vertical.html', (string) $form);
+	}
 }
 
 $test = new BootstrapVerticalRendererV4();
