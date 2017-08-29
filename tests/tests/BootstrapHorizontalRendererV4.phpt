@@ -29,7 +29,7 @@ class BootstrapHorizontalRendererV4 extends Tester\TestCase
 		$renderer = $form->getRenderer();
 		$renderer->setFormHorizontalOrientation();
 
-		$form->addText('name', 'Name:');
+		$form = $this->addInputs($form);
 
 		Assert::matchFile(__DIR__ . '/../expected/bootstrap-v4/form-horizontal.html', (string) $form);
 	}
@@ -46,9 +46,23 @@ class BootstrapHorizontalRendererV4 extends Tester\TestCase
 		$renderer->setFormControlLabelWidth('col-sm-6');
 		$renderer->setFormControlContainerWidth('col-sm-6');
 
-		$form->addText('name', 'Name:');
+		$form = $this->addInputs($form);
 
 		Assert::matchFile(__DIR__ . '/../expected/bootstrap-v4/form-horizontal-sm-6.html', (string) $form);
+	}
+
+
+	/**
+	 * @param Form $form
+	 * @return Form
+	 */
+	private function addInputs(Form $form): Form
+	{
+		$form->addEmail('exampleInputEmail1', 'Email address:')->setOption('description', 'We\'ll never share your email with anyone else.');
+		$form->addPassword('exampleInputPassword1', 'Password');
+		$form->addCheckbox('checkbox', 'Check me out');
+		$form->addSubmit('submit', 'Submit')->setAttribute('class', 'btn btn-primary');
+		return $form;
 	}
 }
 

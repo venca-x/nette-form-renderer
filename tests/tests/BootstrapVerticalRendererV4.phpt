@@ -25,7 +25,7 @@ class BootstrapVerticalRendererV4 extends Tester\TestCase
 	{
 		$form = $this->createBaseFormWithRenderer();
 
-		$form->addText('name', 'Name:');
+		$form = $this->addInputs($form);
 
 		Assert::matchFile(__DIR__ . '/../expected/bootstrap-v4/form-vertical.html', (string) $form);
 	}
@@ -39,9 +39,23 @@ class BootstrapVerticalRendererV4 extends Tester\TestCase
 		$renderer = $form->getRenderer();
 		$renderer->setFormVerticalOrientation();
 
-		$form->addText('name', 'Name:');
+		$form = $this->addInputs($form);
 
 		Assert::matchFile(__DIR__ . '/../expected/bootstrap-v4/form-vertical.html', (string) $form);
+	}
+
+
+	/**
+	 * @param Form $form
+	 * @return Form
+	 */
+	private function addInputs(Form $form): Form
+	{
+		$form->addEmail('exampleInputEmail1', 'Email address:')->setOption('description', 'We\'ll never share your email with anyone else.');
+		$form->addPassword('exampleInputPassword1', 'Password');
+		$form->addCheckbox('checkbox', 'Check me out');
+		$form->addSubmit('submit', 'Submit')->setAttribute('class', 'btn btn-primary');
+		return $form;
 	}
 }
 

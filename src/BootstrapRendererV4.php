@@ -41,7 +41,7 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 		} else {
 			$this->wrappers['label']['container'] = 'div class="' . $this->formControlLabelWidth . ' col-form-label"';//horizontal
 		}
-		$this->wrappers['control']['description'] = 'span class=form-text';
+		$this->wrappers['control']['description'] = 'small';
 		$this->wrappers['control']['errorcontainer'] = 'span class=form-control-feedback';
 		$this->wrappers['control']['.text'] = $this->wrappers['control']['.text'] . ' form-control';
 		$this->wrappers['control']['.password'] = $this->wrappers['control']['.password'] . ' form-control';
