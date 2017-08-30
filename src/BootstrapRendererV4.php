@@ -226,6 +226,7 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 		if ($control->getOption('type') === 'checkbox') {
 			$el = $control->getLabelPart();
 			$el->class('form-check-label', true);
+			$control->getControlPrototype()->addClass('form-check-input');
 			$el->insert(0, $control->getControlPart());
 		} else {
 			$el = $control->getControl();
