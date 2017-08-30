@@ -58,8 +58,11 @@ class BootstrapHorizontalRendererV4 extends Tester\TestCase
 	 */
 	private function addInputs(Form $form): Form
 	{
-		$form->addEmail('exampleInputEmail1', 'Email address:')->setOption('description', 'We\'ll never share your email with anyone else.');
-		$form->addPassword('exampleInputPassword1', 'Password');
+		$form->addEmail('exampleInputEmail1', 'Email address:')
+			->setAttribute('placeholder', 'Enter email')
+			->setOption('description', 'We\'ll never share your email with anyone else.');
+		$form->addPassword('exampleInputPassword1', 'Password')
+			->setAttribute('placeholder', 'Password');
 		$form->addCheckbox('checkbox', 'Check me out');
 		$form->addSubmit('submit', 'Submit')->setAttribute('class', 'btn btn-primary');
 		return $form;
