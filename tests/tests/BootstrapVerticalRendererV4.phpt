@@ -104,6 +104,13 @@ class BootstrapVerticalRendererV4 extends Tester\TestCase
 		$form->addSelect('smallSelect', 'Small select', ['Small select'])
 			->setAttribute('class', 'form-control-sm');
 
+
+		//disables
+		$form->addText('disabled', 'Disabled:')
+			->setAttribute('placeholder', 'Disabled input here…')
+			->setDisabled(true);
+
+
 		$form->addSubmit('submit', 'Submit')->setAttribute('class', 'btn btn-primary');
 
 		return $form;
