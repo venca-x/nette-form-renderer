@@ -64,6 +64,13 @@ class BootstrapHorizontalRendererV4 extends Tester\TestCase
 		$form->addPassword('exampleInputPassword1', 'Password')
 			->setAttribute('placeholder', 'Password');
 		$form->addCheckbox('checkbox', 'Check me out');
+		$form->addCheckbox('checkbox2', 'Check me out2');
+
+		$form->addRadioList('country', 'Country', [
+			'cz' => 'Česká republika',
+			'sk' => 'Slovensko',
+			'eu' => 'EU',
+		]);
 
 		$form->addEmail('exampleInputEmail2', 'Email address')
 			->setAttribute('placeholder', 'name@example.com');
