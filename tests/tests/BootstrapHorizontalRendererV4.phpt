@@ -65,6 +65,26 @@ class BootstrapHorizontalRendererV4 extends Tester\TestCase
 			->setAttribute('placeholder', 'Password');
 		$form->addCheckbox('checkbox', 'Check me out');
 		$form->addSubmit('submit', 'Submit')->setAttribute('class', 'btn btn-primary');
+
+		$form->addEmail('exampleInputEmail2', 'Email address')
+			->setAttribute('placeholder', 'name@example.com');
+
+		$form->addSelect('exampleSelect', 'Example select', [
+			'1',
+			'2',
+			'3',
+			'4',
+			'5']);
+
+		$form->addMultiSelect('exampleMultipleSelect', 'Example multiple select', [
+			'1',
+			'2',
+			'3',
+			'4',
+			'5']);
+
+		$form->addTextArea('textarea', 'Example textarea');
+
 		return $form;
 	}
 }

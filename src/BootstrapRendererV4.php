@@ -229,6 +229,8 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 
 		if ($el instanceof Html && $el->getName() === 'input') {
 			$el->class($this->getValue("control .$el->type"), true);
+		} else if ($control->getOption('type') === 'select' || $control->getOption('type') === 'textarea') {
+			$el->class('form-control', true);
 		}
 
 		return $body->setHtml($el . $description . $this->renderErrors($control));
