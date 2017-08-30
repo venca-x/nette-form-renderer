@@ -190,4 +190,49 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 		}
 	}
 
+	/**
+	 * Renders 'control' part of visual row of controls.
+	 */
+	public function renderControl(Nette\Forms\IControl $control): Html
+	{
+		$body = $this->getWrapper('control container');
+		if ($this->counter % 2) {
+			$body->class($this->getValue('control .odd'), true);
+		}
+
+		$description = $control->getOption('description');
+		if ($description instanceof IHtmlString) {
+			$description = ' ' . $description;
+
+		} elseif ($description != null) { // intentionally ==
+			if ($control instanceof Nette\Forms\Controls\BaseControl) {
+				$description = $control->translate($description);
+			}
+			$description = ' ' . $this->getWrapper('control description')->setText($description);
+
+		} else {
+			$description = '';
+		}
+
+		if ($control->isRequired()) {
+			$description = $this->getValue('control requiredsuffix') . $description;
+		}
+
+		$control->setOption('rendered', true);
+		if ($control->getOption('type') === 'checkbox') {
+			$el = $control->getLabelPart();
+			$el->class("form-check-label", true);
+			$el->insert(0, $control->getControlPart());
+		} else {
+			$el = $control->getControl();
+		}
+
+		if ($el instanceof Html && $el->getName() === 'input') {
+			$el->class($this->getValue("control .$el->type"), true);
+		}
+
+		return $body->setHtml($el . $description . $this->renderErrors($control));
+	}
+
+
 }
