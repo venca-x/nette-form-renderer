@@ -82,6 +82,10 @@ class BootstrapVerticalRendererV4 extends Tester\TestCase
 
 		$form->addMultiUpload('multiUpload', 'Example multiUpload');
 
+/*
+		$form->addEmail('formControlLg', '.form-control-lg')
+			->setAttribute('placeholder', '.form-control-lg');
+*/
 		return $form;
 	}
 }
