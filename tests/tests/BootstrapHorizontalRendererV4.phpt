@@ -64,7 +64,6 @@ class BootstrapHorizontalRendererV4 extends Tester\TestCase
 		$form->addPassword('exampleInputPassword1', 'Password')
 			->setAttribute('placeholder', 'Password');
 		$form->addCheckbox('checkbox', 'Check me out');
-		$form->addSubmit('submit', 'Submit')->setAttribute('class', 'btn btn-primary');
 
 		$form->addEmail('exampleInputEmail2', 'Email address')
 			->setAttribute('placeholder', 'name@example.com');
@@ -100,6 +99,19 @@ class BootstrapHorizontalRendererV4 extends Tester\TestCase
 		$form->addEmail('formControlSm', '.form-control-sm')
 			->setAttribute('class', 'form-control-sm')
 			->setAttribute('placeholder', '.form-control-sm');
+
+
+		//sizes select
+		$form->addSelect('largeSelect', 'Large select', ['Large select'])
+			->setAttribute('class', 'form-control-lg');
+
+		$form->addSelect('defaultSelect', ' Default select', ['Default select']);
+
+		$form->addSelect('smallSelect', 'Small select', ['Small select'])
+			->setAttribute('class', 'form-control-sm');
+
+
+		$form->addSubmit('submit', 'Submit')->setAttribute('class', 'btn btn-primary');
 
 		return $form;
 	}

@@ -19,12 +19,6 @@
 	<label for="frm-checkbox" class="form-check-label"><input type="checkbox" name="checkbox" id="frm-checkbox">Check me out</label>
 </div>
 
-
-
-
-	<input type="submit" name="_submit" class="btn btn-primary button" value="Submit">
-
-
 <div class="form-group">
 	<label for="frm-exampleInputEmail2">Email address</label>
 
@@ -78,6 +72,30 @@
 
 	<input type="email" name="formControlSm" class="form-control-sm form-control" placeholder=".form-control-sm" id="frm-formControlSm" data-nette-rules='[{"op":"optional"},{"op":":email","msg":"Please enter a valid email address."}]'>
 </div>
+
+<div class="form-group">
+	<label for="frm-largeSelect">Large select</label>
+
+	<select name="largeSelect" class="form-control-lg form-control" id="frm-largeSelect"><option value="0">Large select</option></select>
+</div>
+
+<div class="form-group">
+	<label for="frm-defaultSelect"> Default select</label>
+
+	<select name="defaultSelect" id="frm-defaultSelect" class="form-control"><option value="0">Default select</option></select>
+</div>
+
+<div class="form-group">
+	<label for="frm-smallSelect">Small select</label>
+
+	<select name="smallSelect" class="form-control-sm form-control" id="frm-smallSelect"><option value="0">Small select</option></select>
+</div>
+
+
+
+
+	<input type="submit" name="_submit" class="btn btn-primary button" value="Submit">
+
 
 
 </form>
