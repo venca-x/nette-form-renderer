@@ -74,14 +74,14 @@ class BootstrapHorizontalRendererV4 extends Tester\TestCase
 			'2',
 			'3',
 			'4',
-			'5']);
+			'5', ]);
 
 		$form->addMultiSelect('exampleMultipleSelect', 'Example multiple select', [
 			'1',
 			'2',
 			'3',
 			'4',
-			'5']);
+			'5', ]);
 
 		$form->addTextArea('textarea', 'Example textarea');
 

@@ -101,6 +101,7 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 		$this->formControlLabelWidth = $formControlLabelWidth;
 	}
 
+
 	/**
 	 * Renders single visual row.
 	 */
@@ -122,6 +123,7 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 		$pair->id = $control->getOption('id');
 		return $pair->render(0);
 	}
+
 
 	/**
 	 * Renders single visual row of multiple controls.
@@ -155,7 +157,7 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 			}
 			$s[] = $el . $description;
 		}
-		if($this->isFormVerticalOrientation()) {
+		if ($this->isFormVerticalOrientation()) {
 			//is vertical form
 			$pair = Html::el('');
 		} else {
@@ -166,6 +168,7 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 		$pair->addHtml($this->getWrapper('control container')->setHtml(implode(' ', $s)));
 		return $pair->render(0);
 	}
+
 
 	/**
 	 * Renders 'label' part of visual row of controls.
@@ -186,9 +189,10 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 			} elseif ($label != null) { // @intentionally ==
 				$label .= $suffix;
 			}
-			return $this->getWrapper('label container')->setHtml((string)$label);
+			return $this->getWrapper('label container')->setHtml((string) $label);
 		}
 	}
+
 
 	/**
 	 * Renders 'control' part of visual row of controls.
@@ -221,7 +225,7 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 		$control->setOption('rendered', true);
 		if ($control->getOption('type') === 'checkbox') {
 			$el = $control->getLabelPart();
-			$el->class("form-check-label", true);
+			$el->class('form-check-label', true);
 			$el->insert(0, $control->getControlPart());
 		} else {
 			$el = $control->getControl();
@@ -229,12 +233,10 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 
 		if ($el instanceof Html && $el->getName() === 'input') {
 			$el->class($this->getValue("control .$el->type"), true);
-		} else if ($control->getOption('type') === 'select' || $control->getOption('type') === 'textarea') {
+		} elseif ($control->getOption('type') === 'select' || $control->getOption('type') === 'textarea') {
 			$el->class('form-control', true);
 		}
 
 		return $body->setHtml($el . $description . $this->renderErrors($control));
 	}
-
-
 }
