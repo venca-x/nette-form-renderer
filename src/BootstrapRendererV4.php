@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace VencaX\NetteFormRenderer;
 
 use Nette;
+use Nette\Utils\Html;
 
 class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 {
@@ -41,6 +42,7 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 		} else {
 			$this->wrappers['label']['container'] = 'div class="' . $this->formControlLabelWidth . ' col-form-label"';//horizontal
 		}
+		$this->wrappers['control']['checkbox'] = 'div class="form-check"';
 		$this->wrappers['control']['description'] = 'small';
 		$this->wrappers['control']['errorcontainer'] = 'span class=form-control-feedback';
 		$this->wrappers['control']['.text'] = $this->wrappers['control']['.text'] . ' form-control';
@@ -48,6 +50,7 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 		$this->wrappers['control']['.file'] = $this->wrappers['control']['.file'] . ' form-control';
 		$this->wrappers['control']['.email'] = $this->wrappers['control']['.email'] . ' form-control';
 		$this->wrappers['control']['.number'] = $this->wrappers['control']['.number'] . ' form-control';
+		$this->wrappers['control']['.checkbox'] = 'form-check-input';
 
 		return parent::renderBegin();
 	}
@@ -97,4 +100,94 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 	{
 		$this->formControlLabelWidth = $formControlLabelWidth;
 	}
+
+	/**
+	 * Renders single visual row.
+	 */
+	public function renderPair(Nette\Forms\IControl $control): string
+	{
+		if ($control->getOption('type') === 'checkbox') {
+			$pair = $this->getWrapper('control checkbox');
+		} else {
+			$pair = $this->getWrapper('pair container');
+		}
+		$pair->addHtml($this->renderLabel($control));
+		$pair->addHtml($this->renderControl($control));
+		$pair->class($this->getValue($control->isRequired() ? 'pair .required' : 'pair .optional'), true);
+		$pair->class($control->hasErrors() ? $this->getValue('pair .error') : null, true);
+		$pair->class($control->getOption('class'), true);
+		if (++$this->counter % 2) {
+			$pair->class($this->getValue('pair .odd'), true);
+		}
+		$pair->id = $control->getOption('id');
+		return $pair->render(0);
+	}
+
+	/**
+	 * Renders single visual row of multiple controls.
+	 * @param  Nette\Forms\IControl[]
+	 */
+	public function renderPairMulti(array $controls): string
+	{
+		$s = [];
+		foreach ($controls as $control) {
+			if (!$control instanceof Nette\Forms\IControl) {
+				throw new Nette\InvalidArgumentException('Argument must be array of Nette\Forms\IControl instances.');
+			}
+			$description = $control->getOption('description');
+			if ($description instanceof IHtmlString) {
+				$description = ' ' . $description;
+
+			} elseif ($description != null) { // intentionally ==
+				if ($control instanceof Nette\Forms\Controls\BaseControl) {
+					$description = $control->translate($description);
+				}
+				$description = ' ' . $this->getWrapper('control description')->setText($description);
+
+			} else {
+				$description = '';
+			}
+
+			$control->setOption('rendered', true);
+			$el = $control->getControl();
+			if ($el instanceof Html && $el->getName() === 'input') {
+				$el->class($this->getValue("control .$el->type"), true);
+			}
+			$s[] = $el . $description;
+		}
+		if($this->isFormVerticalOrientation()) {
+			//is vertical form
+			$pair = Html::el('');
+		} else {
+			//is horizontal form
+			$pair = $this->getWrapper('pair container');
+		}
+		$pair->addHtml($this->renderLabel($control));
+		$pair->addHtml($this->getWrapper('control container')->setHtml(implode(' ', $s)));
+		return $pair->render(0);
+	}
+
+	/**
+	 * Renders 'label' part of visual row of controls.
+	 */
+	public function renderLabel(Nette\Forms\IControl $control): Html
+	{
+		if ($control->getOption('type') === 'button') {
+			//none label for label
+			return Html::el('');
+		} else {
+			$suffix = $this->getValue('label suffix') . ($control->isRequired() ? $this->getValue('label requiredsuffix') : '');
+			$label = $control->getLabel();
+			if ($label instanceof Html) {
+				$label->addHtml($suffix);
+				if ($control->isRequired()) {
+					$label->class($this->getValue('control .required'), true);
+				}
+			} elseif ($label != null) { // @intentionally ==
+				$label .= $suffix;
+			}
+			return $this->getWrapper('label container')->setHtml((string)$label);
+		}
+	}
+
 }
