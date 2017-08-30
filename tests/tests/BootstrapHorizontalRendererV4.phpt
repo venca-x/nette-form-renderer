@@ -85,6 +85,10 @@ class BootstrapHorizontalRendererV4 extends Tester\TestCase
 
 		$form->addTextArea('textarea', 'Example textarea');
 
+		$form->addUpload('upload', 'Example upload');
+
+		$form->addMultiUpload('multiUpload', 'Example multiUpload');
+
 		return $form;
 	}
 }

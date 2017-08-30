@@ -1,4 +1,4 @@
-<form action="" method="post">
+<form action="" method="post" enctype="multipart/form-data">
 
 
 <div class="form-group row">
@@ -47,6 +47,18 @@
 	<div class="col-sm-6 col-form-label"><label for="frm-textarea">Example textarea</label></div>
 
 	<div class="col-sm-6"><textarea name="textarea" id="frm-textarea" class="form-control"></textarea></div>
+</div>
+
+<div class="form-group row">
+	<div class="col-sm-6 col-form-label"><label for="frm-upload">Example upload</label></div>
+
+	<div class="col-sm-6"><input type="file" name="upload" id="frm-upload" class="text form-control"></div>
+</div>
+
+<div class="form-group row">
+	<div class="col-sm-6 col-form-label"><label for="frm-multiUpload">Example multiUpload</label></div>
+
+	<div class="col-sm-6"><input type="file" name="multiUpload[]" multiple id="frm-multiUpload" class="text form-control"></div>
 </div>
 
 
