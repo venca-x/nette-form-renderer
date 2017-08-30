@@ -25,6 +25,7 @@ class RulesValidBootstrapRendererV4 extends Tester\TestCase
 		}, Nette\InvalidArgumentException::class, 'You cannot use Form::VALID in the addRule method.');
 	}
 
+
 	public function testDescriptionHtml()
 	{
 		$form = $this->createBaseFormWithRenderer();
@@ -36,7 +37,7 @@ class RulesValidBootstrapRendererV4 extends Tester\TestCase
 		$dom = Tester\DomQuery::fromHtml($html);
 
 		Assert::true($dom->has('input[name="exampleInputEmail1"]'));
-		Assert::same('vencax@gmail.com',(string)$dom->find('small')[0]);
+		Assert::same('vencax@gmail.com', (string) $dom->find('small')[0]);
 	}
 
 
@@ -46,7 +47,6 @@ class RulesValidBootstrapRendererV4 extends Tester\TestCase
 		$form->setRenderer(new VencaX\NetteFormRenderer\BootstrapRendererV4());
 		return $form;
 	}
-
 }
 
 $test = new RulesValidBootstrapRendererV4();
