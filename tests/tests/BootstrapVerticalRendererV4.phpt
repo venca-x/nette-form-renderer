@@ -56,40 +56,45 @@ class BootstrapVerticalRendererV4 extends Tester\TestCase
 		$form->addCheckbox('saturdayCheckbox', 'Saturday')->setOption('orientation', 'form-check-inline');
 		$form->addCheckbox('sundayCheckbox', 'Sunday')->setOption('orientation', 'form-check-inline');
 
-/*
-		$form->addRadioList('weekRadio', 'Week radio', [
-			'monday' => 'Monday',
-			'tuesday' => 'Tuesday',
-			'wednesday' => 'Wednesday',
-			'thurstday' => 'Thurstday',
-			'friday' => 'Friday',
-			'saturday' => 'Saturday',
-			'sunday' => 'Sunday',
-		])->setOption('orientation', 'form-check-inline');
-*/
-		$html = (string) $form;
+		/*
+				$form->addRadioList('weekRadio', 'Week radio', [
+					'monday' => 'Monday',
+					'tuesday' => 'Tuesday',
+					'wednesday' => 'Wednesday',
+					'thurstday' => 'Thurstday',
+					'friday' => 'Friday',
+					'saturday' => 'Saturday',
+					'sunday' => 'Sunday',
+				])->setOption('orientation', 'form-check-inline');
+		*/
+		$html = (string)$form;
 
 		//Assert::same('', (string) $html);
 
 		$dom = Tester\DomQuery::fromHtml($html);
 
-		$this->checkInlineCheckbox($dom->find("//div")[0], 'Monday');
-		$this->checkInlineCheckbox($dom->find("//div")[1], 'Tuesday');
-		$this->checkInlineCheckbox($dom->find("//div")[2], 'Wednesday');
-		$this->checkInlineCheckbox($dom->find("//div")[3], 'Thurstday');
-		$this->checkInlineCheckbox($dom->find("//div")[4], 'Friday');
-		$this->checkInlineCheckbox($dom->find("//div")[5], 'Saturday');
-		$this->checkInlineCheckbox($dom->find("//div")[6], 'Sunday');
-
+		$this->checkInlineCheckbox($dom, 0, 'Monday');
+		$this->checkInlineCheckbox($dom, 1, 'Tuesday');
+		$this->checkInlineCheckbox($dom, 2, 'Wednesday');
+		$this->checkInlineCheckbox($dom, 3, 'Thurstday');
+		$this->checkInlineCheckbox($dom, 4, 'Friday');
+		$this->checkInlineCheckbox($dom, 5, 'Saturday');
+		$this->checkInlineCheckbox($dom, 6, 'Sunday');
 	}
 
-	private function checkInlineCheckbox($divGroupCheckbox, $label) {
+	private function checkInlineCheckbox($dom, $position, $label) {
+		/*
 		Assert::contains('form-check form-check-inline', (string) $divGroupCheckbox->attributes()["class"]);
-		$label = $divGroupCheckbox->find('label')[0];
-		Assert::contains('form-check-label', (string) $label->attributes()["class"]);
-		$input = $label->find('input')[0];
+		$labelDom = $divGroupCheckbox->find('./label')[0];
+		Assert::contains('form-check-label', (string) $labelDom->attributes()["class"]);
+		$input = $labelDom->find('./input')[0];
 		Assert::contains('form-check-input', (string) $input->attributes()["class"]);
-		Assert::contains('Monday', (string) $label);
+		Assert::same($label, (string) $labelDom);*/
+
+		Assert::contains('form-check form-check-inline', (string) $dom->find('div')[$position]->attributes()["class"]);
+		Assert::same($label, (string) $dom->find('div label')[$position] );
+		Assert::contains('form-check-label', (string) $dom->find('div label')[$position]->attributes()["class"]);
+		Assert::contains('form-check-input', (string) $dom->find('div label input')[$position]->attributes()["class"]);
 	}
 
 
