@@ -109,6 +109,11 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 	{
 		if ($control->getOption('type') === 'checkbox') {
 			$pair = $this->getWrapper('control checkbox');
+
+			if( $control->getOption('orientation', null) != null) {
+				$pair->class('form-check-inline', true);
+			}
+
 		} else {
 			$pair = $this->getWrapper('pair container');
 		}
