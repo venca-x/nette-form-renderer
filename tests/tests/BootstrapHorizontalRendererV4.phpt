@@ -153,7 +153,7 @@ class BootstrapHorizontalRendererV4 extends Tester\TestCase
 			'sunday' => 'Sunday',
 		])->setOption('orientation', 'form-check-inline');
 
-		$html = (string)$form;
+		$html = (string) $form;
 
 		//Assert::same('', (string) $html);
 
@@ -176,20 +176,23 @@ class BootstrapHorizontalRendererV4 extends Tester\TestCase
 		$this->checkInlineRadio($dom, 12, 'Saturday');
 	}
 
-	private function checkInlineCheckbox($dom, $position, $label) {
-		Assert::contains('form-group row', (string) $dom->find('div.form-group.row')[$position]->attributes()["class"]);
-		Assert::same($label, (string) $dom->find('div label')[$position] );
-		Assert::contains('form-check-label', (string) $dom->find('div label')[$position]->attributes()["class"]);
-		Assert::contains('form-check-input', (string) $dom->find('div label input')[$position]->attributes()["class"]);
+
+	private function checkInlineCheckbox($dom, $position, $label)
+	{
+		Assert::contains('form-group row', (string) $dom->find('div.form-group.row')[$position]->attributes()['class']);
+		Assert::same($label, (string) $dom->find('div label')[$position]);
+		Assert::contains('form-check-label', (string) $dom->find('div label')[$position]->attributes()['class']);
+		Assert::contains('form-check-input', (string) $dom->find('div label input')[$position]->attributes()['class']);
 	}
 
-	private function checkInlineRadio($dom, $position, $label) {
-		Assert::contains('form-group row', (string) $dom->find('div.form-group.row')[$position]->attributes()["class"]);
-		Assert::same($label, (string) $dom->find('div.form-group.row div.col-sm-9 label')[$position] );
-		Assert::contains('form-check-label', (string) $dom->find('div label')[$position]->attributes()["class"]);
-		Assert::contains('form-check-input', (string) $dom->find('div label input')[$position]->attributes()["class"]);
-	}
 
+	private function checkInlineRadio($dom, $position, $label)
+	{
+		Assert::contains('form-group row', (string) $dom->find('div.form-group.row')[$position]->attributes()['class']);
+		Assert::same($label, (string) $dom->find('div.form-group.row div.col-sm-9 label')[$position]);
+		Assert::contains('form-check-label', (string) $dom->find('div label')[$position]->attributes()['class']);
+		Assert::contains('form-check-input', (string) $dom->find('div label input')[$position]->attributes()['class']);
+	}
 }
 
 $test = new BootstrapHorizontalRendererV4();
