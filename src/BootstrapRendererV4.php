@@ -9,6 +9,7 @@ use Nette\Utils\Html;
 
 class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 {
+	public const FORM_CHECK_INLINE = 'form-check-inline';
 
 	/**
 	 * Default is vertical orientation form
@@ -107,7 +108,7 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 	 */
 	public function renderPair(Nette\Forms\IControl $control): string
 	{
-		if ($control->getOption('type') === 'radio' && $control->getOption('orientation', null) != null) {
+		if ($control->getOption('type') === 'radio' && $control->getOption('orientation', null) == self::FORM_CHECK_INLINE) {
 			$radios = Html::el(null);
 
 			//title for radio
@@ -127,7 +128,7 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 			foreach ($control->items as $key => $labelTitle) {
 				if ($this->isFormVerticalOrientation()) {
 					$pair = $this->getWrapper('control checkbox');
-					$pair->class('form-check-inline', true);
+					$pair->class(self::FORM_CHECK_INLINE, true);
 				} else {
 					$pair = $this->getWrapper('pair container');
 				}
@@ -171,12 +172,12 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 			if ($this->isFormVerticalOrientation()) {
 				//default form without orientation
 				$pair = $this->getWrapper('control checkbox');
-				if ($control->getOption('orientation', null) != null) {
-					$pair->class('form-check-inline', true);
+				if ($control->getOption('orientation', null) == self::FORM_CHECK_INLINE) {
+					$pair->class(self::FORM_CHECK_INLINE, true);
 				}
 			} else {
 				//horizontalni formular
-				if ($control->getOption('orientation', null) != null) {
+				if ($control->getOption('orientation', null) == self::FORM_CHECK_INLINE) {
 					$pair = $this->getWrapper('pair container');
 				} else {
 					$pair = $this->getWrapper('control checkbox');
@@ -251,7 +252,7 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 		if ($control->getOption('type') === 'button') {
 			//none label for label
 			return Html::el('');
-		} elseif ($control->getOption('type') === 'radio' && ($control->getOption('orientation', null) != null)) {
+		} elseif ($control->getOption('type') === 'radio' && ($control->getOption('orientation', null) == self::FORM_CHECK_INLINE)) {
 			//none label for radio inline
 				return Html::el('');
 		} else {

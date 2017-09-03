@@ -49,13 +49,13 @@ class BootstrapVerticalRendererV4 extends Tester\TestCase
 	{
 		$form = $this->createBaseFormWithRenderer();
 
-		$form->addCheckbox('mondayCheckbox', 'Monday')->setOption('orientation', 'form-check-inline');
-		$form->addCheckbox('tuesdayCheckbox', 'Tuesday')->setOption('orientation', 'form-check-inline');
-		$form->addCheckbox('wednesdayCheckbox', 'Wednesday')->setOption('orientation', 'form-check-inline');
-		$form->addCheckbox('thurstdayCheckbox', 'Thurstday')->setOption('orientation', 'form-check-inline');
-		$form->addCheckbox('fridayCheckbox', 'Friday')->setOption('orientation', 'form-check-inline');
-		$form->addCheckbox('saturdayCheckbox', 'Saturday')->setOption('orientation', 'form-check-inline');
-		$form->addCheckbox('sundayCheckbox', 'Sunday')->setOption('orientation', 'form-check-inline');
+		$form->addCheckbox('mondayCheckbox', 'Monday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
+		$form->addCheckbox('tuesdayCheckbox', 'Tuesday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
+		$form->addCheckbox('wednesdayCheckbox', 'Wednesday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
+		$form->addCheckbox('thurstdayCheckbox', 'Thurstday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
+		$form->addCheckbox('fridayCheckbox', 'Friday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
+		$form->addCheckbox('saturdayCheckbox', 'Saturday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
+		$form->addCheckbox('sundayCheckbox', 'Sunday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
 
 		$form->addRadioList('weekRadio', 'Week radio', [
 			'monday' => 'Monday',
@@ -65,7 +65,7 @@ class BootstrapVerticalRendererV4 extends Tester\TestCase
 			'friday' => 'Friday',
 			'saturday' => 'Saturday',
 			'sunday' => 'Sunday',
-		])->setOption('orientation', 'form-check-inline');
+		])->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
 
 		$html = (string) $form;
 
