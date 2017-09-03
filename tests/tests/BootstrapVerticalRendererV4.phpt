@@ -90,6 +90,7 @@ class BootstrapVerticalRendererV4 extends Tester\TestCase
 		$this->checkInlineRadio($dom, 12, 'Saturday');
 	}
 
+
 	public function testVerticalInlineForm()
 	{
 		$form = $this->createBaseFormWithRenderer();
@@ -119,6 +120,7 @@ class BootstrapVerticalRendererV4 extends Tester\TestCase
 		Assert::same('form-check-input', (string) $dom->find('input')[2]->attributes()['class']);
 		Assert::same('form-check mb-2 mr-sm-2 mb-sm-0', (string) $dom->find('div')[2]->attributes()['class']);
 	}
+
 
 	private function checkInlineCheckbox($dom, $position, $label)
 	{

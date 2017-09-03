@@ -53,7 +53,7 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 		$this->wrappers['control']['description'] = 'small';
 		$this->wrappers['control']['errorcontainer'] = 'span class=form-control-feedback';
 
-		if($this->isFormInline()) {
+		if ($this->isFormInline()) {
 			$this->form->getElementPrototype()->addClass('form-inline');
 		}
 
@@ -88,9 +88,12 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 		return $this->formOrientationVertical;
 	}
 
-	public function setFormInline() {
+
+	public function setFormInline()
+	{
 		$this->formInline = true;
 	}
+
 
 	/**
 	 * Is form in inline
@@ -201,7 +204,7 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 				}
 			}
 
-			if($this->isFormInline()) {
+			if ($this->isFormInline()) {
 				$pair->class('mb-2 mr-sm-2 mb-sm-0', true);
 			}
 
@@ -338,7 +341,7 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 		if ($control->getOption('type') === 'text' || $control->getOption('type') === 'textarea' || $control->getOption('type') === 'select') {
 			$el->class('form-control', true);
 
-			if($this->isFormInline()) {
+			if ($this->isFormInline()) {
 				$el->class('mb-2 mr-sm-2 mb-sm-0', true);
 			}
 
