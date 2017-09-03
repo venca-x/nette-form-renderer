@@ -17,6 +17,12 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 	 */
 	private $formOrientationVertical = true;
 
+	/**
+	 * Default is not inline form
+	 * @var bool
+	 */
+	private $formInline = false;
+
 	private $formControlLabelWidth = 'col-sm-3';
 	private $formControlContainerWidth = 'col-sm-9';
 
@@ -46,12 +52,10 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 		$this->wrappers['control']['checkbox'] = 'div class="form-check"';
 		$this->wrappers['control']['description'] = 'small';
 		$this->wrappers['control']['errorcontainer'] = 'span class=form-control-feedback';
-		$this->wrappers['control']['.text'] = $this->wrappers['control']['.text'] . ' form-control';
-		$this->wrappers['control']['.password'] = $this->wrappers['control']['.password'] . ' form-control';
-		$this->wrappers['control']['.file'] = $this->wrappers['control']['.file'] . ' form-control';
-		$this->wrappers['control']['.email'] = $this->wrappers['control']['.email'] . ' form-control';
-		$this->wrappers['control']['.number'] = $this->wrappers['control']['.number'] . ' form-control';
-		$this->wrappers['control']['.checkbox'] = 'form-check-input';
+
+		if($this->isFormInline()) {
+			$this->form->getElementPrototype()->addClass('form-inline');
+		}
 
 		return parent::renderBegin();
 	}
@@ -82,6 +86,19 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 	private function isFormVerticalOrientation(): bool
 	{
 		return $this->formOrientationVertical;
+	}
+
+	public function setFormInline() {
+		$this->formInline = true;
+	}
+
+	/**
+	 * Is form in inline
+	 * @return bool
+	 */
+	private function isFormInline(): bool
+	{
+		return $this->formInline;
 	}
 
 
@@ -183,9 +200,15 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 					$pair = $this->getWrapper('control checkbox');
 				}
 			}
+
+			if($this->isFormInline()) {
+				$pair->class('mb-2 mr-sm-2 mb-sm-0', true);
+			}
+
 		} else {
 			$pair = $this->getWrapper('pair container');
 		}
+
 		$pair->addHtml($this->renderLabel($control));
 		$pair->addHtml($this->renderControl($control));
 		$pair->class($this->getValue($control->isRequired() ? 'pair .required' : 'pair .optional'), true);
@@ -314,6 +337,11 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 
 		if ($control->getOption('type') === 'text' || $control->getOption('type') === 'textarea' || $control->getOption('type') === 'select') {
 			$el->class('form-control', true);
+
+			if($this->isFormInline()) {
+				$el->class('mb-2 mr-sm-2 mb-sm-0', true);
+			}
+
 		} elseif ($control->getOption('type') === 'file') {
 			$el->class('form-control-file', true);
 		} else {

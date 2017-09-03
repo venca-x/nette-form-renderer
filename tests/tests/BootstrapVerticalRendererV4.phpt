@@ -90,6 +90,35 @@ class BootstrapVerticalRendererV4 extends Tester\TestCase
 		$this->checkInlineRadio($dom, 12, 'Saturday');
 	}
 
+	public function testVerticalInlineForm()
+	{
+		$form = $this->createBaseFormWithRenderer();
+
+		//inline form
+		$renderer = $form->getRenderer();
+		$renderer->setFormInline();
+
+		$form->addEmail('loginemail', 'E-mail address:')
+			->setAttribute('placeholder', 'Enter e-mail');
+		$form->addPassword('password', 'Password')
+			->setAttribute('placeholder', 'Password');
+		$form->addCheckbox('checkbox', 'Check me out');
+
+		$form->addSubmit('submit', 'Login')->setAttribute('class', 'btn btn-primary');
+
+		$html = (string) $form;
+
+		//Assert::same('', (string) $html);
+
+		$dom = Tester\DomQuery::fromHtml($html);
+
+		Assert::same('form-inline', (string) $dom->find('form.form-inline')[0]->attributes()['class']);
+
+		Assert::same('form-control mb-2 mr-sm-2 mb-sm-0', (string) $dom->find('input')[0]->attributes()['class']);
+		Assert::same('form-control mb-2 mr-sm-2 mb-sm-0', (string) $dom->find('input')[1]->attributes()['class']);
+		Assert::same('form-check-input', (string) $dom->find('input')[2]->attributes()['class']);
+		Assert::same('form-check mb-2 mr-sm-2 mb-sm-0', (string) $dom->find('div')[2]->attributes()['class']);
+	}
 
 	private function checkInlineCheckbox($dom, $position, $label)
 	{

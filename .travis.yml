@@ -52,6 +52,7 @@ jobs:
 
     allow_failures:
         -   stage: Code Coverage
+        -   env: title="Lowest Dependencies"
 
 
 sudo: false
