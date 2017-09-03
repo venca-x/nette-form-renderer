@@ -16,8 +16,8 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 	 */
 	private $formOrientationVertical = true;
 
-	private $formControlContainerWidth = 'col-sm-9';
 	private $formControlLabelWidth = 'col-sm-3';
+	private $formControlContainerWidth = 'col-sm-9';
 
 
 	/**
@@ -107,13 +107,84 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 	 */
 	public function renderPair(Nette\Forms\IControl $control): string
 	{
-		if ($control->getOption('type') === 'checkbox') {
-			$pair = $this->getWrapper('control checkbox');
+		if($control->getOption('type') === 'radio' && $control->getOption('orientation', null) != null) {
 
-			if( $control->getOption('orientation', null) != null) {
-				$pair->class('form-check-inline', true);
+			$radios = Html::el(null);
+
+			//title for radio
+			if($this->isFormVerticalOrientation()) {
+				//vertical form
+				$pair = $this->getWrapper('control checkbox');
+				$pair->addHtml($control->getCaption());
+			} else {
+				//horizontal form
+				$label = $this->getWrapper('label container');
+				$label->setHtml($control->getCaption());
+				$pair = $this->getWrapper('pair container')->addHtml($label);
+			}
+			$radios->addHtml($pair);
+
+			//items
+			foreach($control->items as $key => $labelTitle) {
+
+				if($this->isFormVerticalOrientation()) {
+					$pair = $this->getWrapper('control checkbox');
+					$pair->class('form-check-inline', true);
+				} else {
+					$pair = $this->getWrapper('pair container');
+				}
+
+				if($this->isFormVerticalOrientation()) {
+					$label = $control->getLabelPart($key);
+					$label->addClass('form-check-label');
+				} else {
+					//horizontal label
+					$label = $this->getWrapper('label container');
+				}
+
+				$controlPartIn = $control->getControlPart($key);
+				$controlPartIn ->addClass('form-check-input');
+				if($this->isFormVerticalOrientation() == false) {
+					//horizontal form
+					$controlPart = $this->getWrapper('control container');
+
+					$labelHtml = $control->getLabelPart($key);
+					$labelHtml->setHtml('');//remove label. Label is before input, must be after input
+					$labelHtml->addClass('form-check-label');
+					$labelHtml->addHtml($controlPartIn);
+					$labelHtml->addHtml($labelTitle);
+					$controlPart->addHtml($labelHtml);
+
+					$pair->addHtml($label);
+					$pair->addHtml((string)$controlPart);
+
+				} else {
+					//vertical form
+					$label->setHtml((string)$controlPartIn);
+					$label->addHtml($labelTitle);
+					$pair->addHtml($label);
+				}
+
+				$radios->addHtml($pair);
 			}
 
+			return $radios->render(0);
+		} else if ($control->getOption('type') === 'checkbox') {
+
+			if($this->isFormVerticalOrientation()){
+				//default form without orientation
+				$pair = $this->getWrapper('control checkbox');
+				if ($control->getOption('orientation', null) != null) {
+					$pair->class('form-check-inline', true);
+				}
+			} else {
+				//horizontalni formular
+				if($control->getOption('orientation', null) != null) {
+					$pair = $this->getWrapper('pair container');
+				} else {
+					$pair = $this->getWrapper('control checkbox');
+				}
+			}
 		} else {
 			$pair = $this->getWrapper('pair container');
 		}
@@ -183,6 +254,9 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 		if ($control->getOption('type') === 'button') {
 			//none label for label
 			return Html::el('');
+		} else if ($control->getOption('type') === 'radio' && ($control->getOption('orientation', null) != null)) {
+				//none label for radio inline
+				return Html::el('');
 		} else {
 			$suffix = $this->getValue('label suffix') . ($control->isRequired() ? $this->getValue('label requiredsuffix') : '');
 			$label = $control->getLabel();
@@ -228,6 +302,7 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 		}
 
 		$control->setOption('rendered', true);
+
 		if (in_array($control->getOption('type'), ['checkbox', 'radio'], true)) {
 			if ($control instanceof Nette\Forms\Controls\Checkbox) {
 				$control->getLabelPrototype()->addClass('form-check-label');

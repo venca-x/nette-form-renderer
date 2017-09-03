@@ -56,17 +56,16 @@ class BootstrapVerticalRendererV4 extends Tester\TestCase
 		$form->addCheckbox('saturdayCheckbox', 'Saturday')->setOption('orientation', 'form-check-inline');
 		$form->addCheckbox('sundayCheckbox', 'Sunday')->setOption('orientation', 'form-check-inline');
 
-		/*
-				$form->addRadioList('weekRadio', 'Week radio', [
-					'monday' => 'Monday',
-					'tuesday' => 'Tuesday',
-					'wednesday' => 'Wednesday',
-					'thurstday' => 'Thurstday',
-					'friday' => 'Friday',
-					'saturday' => 'Saturday',
-					'sunday' => 'Sunday',
-				])->setOption('orientation', 'form-check-inline');
-		*/
+		$form->addRadioList('weekRadio', 'Week radio', [
+			'monday' => 'Monday',
+			'tuesday' => 'Tuesday',
+			'wednesday' => 'Wednesday',
+			'thurstday' => 'Thurstday',
+			'friday' => 'Friday',
+			'saturday' => 'Saturday',
+			'sunday' => 'Sunday',
+		])->setOption('orientation', 'form-check-inline');
+
 		$html = (string)$form;
 
 		//Assert::same('', (string) $html);
@@ -80,18 +79,25 @@ class BootstrapVerticalRendererV4 extends Tester\TestCase
 		$this->checkInlineCheckbox($dom, 4, 'Friday');
 		$this->checkInlineCheckbox($dom, 5, 'Saturday');
 		$this->checkInlineCheckbox($dom, 6, 'Sunday');
+
+		Assert::same('Week radio', (string) $dom->find('div.form-check')[7]);
+		$this->checkInlineRadio($dom, 7, 'Monday');
+		$this->checkInlineRadio($dom, 8, 'Tuesday');
+		$this->checkInlineRadio($dom, 9, 'Wednesday');
+		$this->checkInlineRadio($dom, 10, 'Thurstday');
+		$this->checkInlineRadio($dom, 11, 'Friday');
+		$this->checkInlineRadio($dom, 12, 'Saturday');
 	}
 
 	private function checkInlineCheckbox($dom, $position, $label) {
-		/*
-		Assert::contains('form-check form-check-inline', (string) $divGroupCheckbox->attributes()["class"]);
-		$labelDom = $divGroupCheckbox->find('./label')[0];
-		Assert::contains('form-check-label', (string) $labelDom->attributes()["class"]);
-		$input = $labelDom->find('./input')[0];
-		Assert::contains('form-check-input', (string) $input->attributes()["class"]);
-		Assert::same($label, (string) $labelDom);*/
+		Assert::contains('form-check form-check-inline', (string) $dom->find('div.form-check.form-check-inline')[$position]->attributes()["class"]);
+		Assert::same($label, (string) $dom->find('div label')[$position] );
+		Assert::contains('form-check-label', (string) $dom->find('div label')[$position]->attributes()["class"]);
+		Assert::contains('form-check-input', (string) $dom->find('div label input')[$position]->attributes()["class"]);
+	}
 
-		Assert::contains('form-check form-check-inline', (string) $dom->find('div')[$position]->attributes()["class"]);
+	private function checkInlineRadio($dom, $position, $label) {
+		Assert::contains('form-check form-check-inline', (string) $dom->find('div.form-check.form-check-inline')[$position]->attributes()["class"]);
 		Assert::same($label, (string) $dom->find('div label')[$position] );
 		Assert::contains('form-check-label', (string) $dom->find('div label')[$position]->attributes()["class"]);
 		Assert::contains('form-check-input', (string) $dom->find('div label input')[$position]->attributes()["class"]);
