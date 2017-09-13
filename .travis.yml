@@ -24,9 +24,9 @@ after_failure:
 
 jobs:
     include:
-        -   env: title="Lowest Dependencies"
-            install:
-                - travis_retry composer update --no-progress --prefer-dist --prefer-lowest --prefer-stable
+#        -   env: title="Lowest Dependencies"
+#            install:
+#                - travis_retry composer update --no-progress --prefer-dist --prefer-lowest --prefer-stable
 
 
         -   stage: Code Standard Checker
