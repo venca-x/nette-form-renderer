@@ -233,9 +233,6 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 	{
 		$s = [];
 		foreach ($controls as $control) {
-			if (!$control instanceof Nette\Forms\IControl) {
-				throw new Nette\InvalidArgumentException('Argument must be array of Nette\Forms\IControl instances.');
-			}
 			$description = $control->getOption('description');
 			if ($description instanceof IHtmlString) {
 				$description = ' ' . $description;
