@@ -24,6 +24,7 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 	private $formInline = false;
 
 	private $formControlLabelWidth = 'col-sm-3';
+
 	private $formControlContainerWidth = 'col-sm-9';
 
 
