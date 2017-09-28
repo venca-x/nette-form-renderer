@@ -2,11 +2,19 @@
 [![Build Status](https://travis-ci.org/venca-x/nette-form-renderer.svg?branch=master)](https://travis-ci.org/venca-x/nette-form-renderer)
 [![Coverage Status](https://coveralls.io/repos/github/venca-x/nette-form-renderer/badge.svg?branch=master)](https://coveralls.io/github/venca-x/nette-form-renderer?branch=master)
 [![Latest Stable Version](https://poser.pugx.org/venca-x/nette-form-renderer/v/stable)](https://packagist.org/packages/venca-x/nette-form-renderer)
-[![Total Downloads](https://poser.pugx.org/venca-x/nette-form-renderer/downloads)](https://packagist.org/packages/venca-x/nette-form-renderer)
 [![Latest Unstable Version](https://poser.pugx.org/venca-x/nette-form-renderer/v/unstable)](https://packagist.org/packages/venca-x/nette-form-renderer)
+[![Total Downloads](https://poser.pugx.org/venca-x/nette-form-renderer/downloads)](https://packagist.org/packages/venca-x/nette-form-renderer)
 [![License](https://poser.pugx.org/venca-x/nette-form-renderer/license)](https://packagist.org/packages/venca-x/nette-form-renderer)
 
 Form renderer for Nette Forms - TwitterBootstrap v4
+
+## Installation
+Install with composer:
+```
+composer require venca-x/nette-form-renderer:dev-master
+```
+
+## Base info
 
 Types of orientation form
  * Vertical
