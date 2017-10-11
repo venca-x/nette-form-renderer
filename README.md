@@ -99,6 +99,35 @@ $form->addSubmit('submit', 'Submit')->setAttribute('class', 'btn btn-primary');
 
 return $form;
 ```
+
+## Vertical orientation form - radios and checkboxes inline
+```php
+$form = new Form;
+$form->setRenderer(new VencaX\NetteFormRenderer\BootstrapRendererV4());
+
+$form->addCheckbox('mondayCheckbox', 'Monday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
+$form->addCheckbox('tuesdayCheckbox', 'Tuesday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
+$form->addCheckbox('wednesdayCheckbox', 'Wednesday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
+$form->addCheckbox('thurstdayCheckbox', 'Thurstday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
+$form->addCheckbox('fridayCheckbox', 'Friday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
+$form->addCheckbox('saturdayCheckbox', 'Saturday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
+$form->addCheckbox('sundayCheckbox', 'Sunday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
+
+$form->addRadioList('weekRadionline', 'Week radio 2', [
+    'monday' => 'Monday',
+    'tuesday' => 'Tuesday',
+    'wednesday' => 'Wednesday',
+    'thurstday' => 'Thurstday',
+    'friday' => 'Friday',
+    'saturday' => 'Saturday',
+    'sunday' => 'Sunday',
+])->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
+
+$form->addSubmit('submit', 'Submit')->setAttribute('class', 'btn btn-primary');
+
+return $form;
+```
+
 ## Horizontal orientation form
 ```php
 $form = new Form;
@@ -181,6 +210,44 @@ $form->addSubmit('submit', 'Submit')->setAttribute('class', 'btn btn-primary');
 
 return $form;
 ``` 
+
+## Horizontal orientation form - radios and checkboxes inline
+**It is not possible to place checkboxes on one line**, only radios inline.
+```php
+$form = new Form;
+$form->setRenderer(new VencaX\NetteFormRenderer\BootstrapRendererV4());
+
+//horizontal form
+$renderer = $form->getRenderer();
+$renderer->setFormHorizontalOrientation();
+
+//$renderer->setFormControlLabelWidth('col-sm-6');
+//$renderer->setFormControlContainerWidth('col-sm-6');
+
+//!!!!!!!!! this orientation **don't work** !!!!!!!!!!!!!!!!!
+$form->addCheckbox('mondayCheckbox', 'Monday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
+$form->addCheckbox('tuesdayCheckbox', 'Tuesday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
+$form->addCheckbox('wednesdayCheckbox', 'Wednesday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
+$form->addCheckbox('thurstdayCheckbox', 'Thurstday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
+$form->addCheckbox('fridayCheckbox', 'Friday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
+$form->addCheckbox('saturdayCheckbox', 'Saturday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
+$form->addCheckbox('sundayCheckbox', 'Sunday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
+
+$form->addRadioList('weekRadionline', 'Week radio 2', [
+    'monday' => 'Monday',
+    'tuesday' => 'Tuesday',
+    'wednesday' => 'Wednesday',
+    'thurstday' => 'Thurstday',
+    'friday' => 'Friday',
+    'saturday' => 'Saturday',
+    'sunday' => 'Sunday',
+])->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
+
+$form->addSubmit('submit', 'Submit')->setAttribute('class', 'btn btn-primary');
+
+return $form;
+```
+
 ## Inline orientation form
 ```php
 $form = new Form;
@@ -196,7 +263,7 @@ $form->addPassword('password', 'Password')
     ->setAttribute('placeholder', 'Password');
 $form->addCheckbox('checkbox', 'Check me out');
 
-$form->addSubmit('submit', 'Login')->setAttribute('class', 'btn btn-primary');
+$form->addSubmit('submit', 'Submit')->setAttribute('class', 'btn btn-primary');
 
 return $form;
 ```
