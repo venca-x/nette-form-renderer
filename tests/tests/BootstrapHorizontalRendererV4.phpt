@@ -167,6 +167,7 @@ class BootstrapHorizontalRendererV4 extends Tester\TestCase
 		$this->checkInlineCheckbox($dom, 5, 'Saturday');
 		$this->checkInlineCheckbox($dom, 6, 'Sunday');
 
+		Assert::same('form-group row', (string) $dom->find('div.form-group')[7]->attributes()['class']);
 		Assert::same('Week radio', (string) $dom->find('div.form-group.row div.col-sm-3.col-form-label')[7]);
 		$this->checkInlineRadio($dom, 7, 'Monday');
 		$this->checkInlineRadio($dom, 8, 'Tuesday');
@@ -188,10 +189,9 @@ class BootstrapHorizontalRendererV4 extends Tester\TestCase
 
 	private function checkInlineRadio($dom, $position, $label)
 	{
-		Assert::contains('form-group row', (string) $dom->find('div.form-group.row')[$position]->attributes()['class']);
-		Assert::same($label, (string) $dom->find('div.form-group.row div.col-sm-9 label')[$position]);
-		Assert::contains('form-check-label', (string) $dom->find('div label')[$position]->attributes()['class']);
-		Assert::contains('form-check-input', (string) $dom->find('div label input')[$position]->attributes()['class']);
+		Assert::contains($label, (string) $dom->find('div.form-group.row div.col-sm-9 label')[$position]);
+		Assert::contains('form-check-label', (string) $dom->find('div.form-group.row div.col-sm-9 label')[$position]->attributes()['class']);
+		Assert::contains('form-check-input', (string) $dom->find('div.form-group.row div.col-sm-9 label input')[$position]->attributes()['class']);
 	}
 }
 

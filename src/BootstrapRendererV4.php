@@ -134,60 +134,50 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 
 			//title for radio
 			if ($this->isFormVerticalOrientation()) {
-				//vertical form
+				//vertical form, one line with title, newxt line with radios
 				$pair = $this->getWrapper('control checkbox');
 				$pair->addHtml($control->getCaption());
+
+				$radios->addHtml($pair);
+
+				$divForControls = $this->getWrapper('control checkbox');
+				foreach ($control->items as $key => $labelTitle) {
+					$controlPartIn = $control->getControlPart($key);
+					$controlPartIn->addClass('form-check-input');
+
+					$radioControlHtml = $control->getLabelPart($key);
+					$radioControlHtml->setHtml('');//remove label. Label is before input, must be after input
+					$radioControlHtml->addClass('form-check-label');
+					$radioControlHtml->addHtml($controlPartIn);
+					$radioControlHtml->addHtml($labelTitle);
+
+					$divForControls->addHtml($radioControlHtml);
+				}
+				$radios->addHtml($divForControls);
 			} else {
-				//horizontal form
+				//horizontal form, one linew with title and with radios
 				$label = $this->getWrapper('label container');
 				$label->setHtml($control->getCaption());
 				$pair = $this->getWrapper('pair container')->addHtml($label);
+
+				$divForControls = $this->getWrapper('control container');
+
+				foreach ($control->items as $key => $labelTitle) {
+					$controlPartIn = $control->getControlPart($key);
+					$controlPartIn->addClass('form-check-input');
+
+					$radioControlHtml = $control->getLabelPart($key);
+					$radioControlHtml->setHtml('');//remove label. Label is before input, must be after input
+					$radioControlHtml->addClass('form-check-label');
+					$radioControlHtml->addHtml($controlPartIn);
+					$radioControlHtml->addHtml($labelTitle);
+					$divForControls->addHtml($radioControlHtml);
+				}
+
+				$pair->addHtml($divForControls);
+
+				$radios->addHtml($pair);//add pari with title and radios on one line
 			}
-			$radios->addHtml($pair);
-
-			//items
-			foreach ($control->items as $key => $labelTitle) {
-				if ($this->isFormVerticalOrientation()) {
-					$pair = $this->getWrapper('control checkbox');
-					$pair->class(self::FORM_CHECK_INLINE, true);
-				} else {
-					$pair = $this->getWrapper('pair container');
-				}
-
-				if ($this->isFormVerticalOrientation()) {
-					$label = $control->getLabelPart($key);
-					$label->addClass('form-check-label');
-				} else {
-					//horizontal label
-					$label = $this->getWrapper('label container');
-				}
-
-				$controlPartIn = $control->getControlPart($key);
-				$controlPartIn->addClass('form-check-input');
-				if ($this->isFormVerticalOrientation() == false) {
-					//horizontal form
-					$controlPart = $this->getWrapper('control container');
-
-					$labelHtml = $control->getLabelPart($key);
-					$labelHtml->setHtml('');//remove label. Label is before input, must be after input
-					$labelHtml->addClass('form-check-label');
-					$labelHtml->addHtml($controlPartIn);
-					$labelHtml->addHtml($labelTitle);
-					$controlPart->addHtml($labelHtml);
-
-					$pair->addHtml($label);
-					$pair->addHtml((string) $controlPart);
-
-				} else {
-					//vertical form
-					$label->setHtml((string) $controlPartIn);
-					$label->addHtml($labelTitle);
-					$pair->addHtml($label);
-				}
-
-				$radios->addHtml($pair);
-			}
-
 			return $radios->render(0);
 		} elseif ($control->getOption('type') === 'checkbox') {
 			if ($this->isFormVerticalOrientation()) {
@@ -201,7 +191,8 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 				if ($control->getOption('orientation', null) == self::FORM_CHECK_INLINE) {
 					$pair = $this->getWrapper('pair container');
 				} else {
-					$pair = $this->getWrapper('control checkbox');
+					$pair = $this->getWrapper('pair container');
+					//$pair = $this->getWrapper('control checkbox');//nevim podle ceho dat checkboxy na 1 radek v horizontalnim formulari
 				}
 			}
 
@@ -235,18 +226,6 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 		$s = [];
 		foreach ($controls as $control) {
 			$description = $control->getOption('description');
-			if ($description instanceof IHtmlString) {
-				$description = ' ' . $description;
-
-			} elseif ($description != null) { // intentionally ==
-				if ($control instanceof Nette\Forms\Controls\BaseControl) {
-					$description = $control->translate($description);
-				}
-				$description = ' ' . $this->getWrapper('control description')->setText($description);
-
-			} else {
-				$description = '';
-			}
 
 			$control->setOption('rendered', true);
 			$el = $control->getControl();
@@ -276,9 +255,6 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 		if ($control->getOption('type') === 'button') {
 			//none label for label
 			return Html::el('');
-		} elseif ($control->getOption('type') === 'radio' && ($control->getOption('orientation', null) == self::FORM_CHECK_INLINE)) {
-			//none label for radio inline
-				return Html::el('');
 		} else {
 			$suffix = $this->getValue('label suffix') . ($control->isRequired() ? $this->getValue('label requiredsuffix') : '');
 			$label = $control->getLabel();
@@ -287,9 +263,8 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 				if ($control->isRequired()) {
 					$label->class($this->getValue('control .required'), true);
 				}
-			} elseif ($label != null) { // @intentionally ==
-				$label .= $suffix;
 			}
+
 			return $this->getWrapper('label container')->setHtml((string) $label);
 		}
 	}
@@ -306,10 +281,7 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 		}
 
 		$description = $control->getOption('description');
-		if ($description instanceof IHtmlString) {
-			$description = ' ' . $description;
-
-		} elseif ($description != null) { // intentionally ==
+		if ($description != null) { // intentionally ==
 			if ($control instanceof Nette\Forms\Controls\BaseControl) {
 				$description = $control->translate($description);
 			}

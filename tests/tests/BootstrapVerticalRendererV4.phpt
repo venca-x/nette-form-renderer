@@ -45,101 +45,6 @@ class BootstrapVerticalRendererV4 extends Tester\TestCase
 	}
 
 
-	public function testVerticalCheckInlineForm()
-	{
-		$form = $this->createBaseFormWithRenderer();
-
-		$form->addCheckbox('mondayCheckbox', 'Monday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
-		$form->addCheckbox('tuesdayCheckbox', 'Tuesday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
-		$form->addCheckbox('wednesdayCheckbox', 'Wednesday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
-		$form->addCheckbox('thurstdayCheckbox', 'Thurstday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
-		$form->addCheckbox('fridayCheckbox', 'Friday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
-		$form->addCheckbox('saturdayCheckbox', 'Saturday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
-		$form->addCheckbox('sundayCheckbox', 'Sunday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
-
-		$form->addRadioList('weekRadio', 'Week radio', [
-			'monday' => 'Monday',
-			'tuesday' => 'Tuesday',
-			'wednesday' => 'Wednesday',
-			'thurstday' => 'Thurstday',
-			'friday' => 'Friday',
-			'saturday' => 'Saturday',
-			'sunday' => 'Sunday',
-		])->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
-
-		$html = (string) $form;
-
-		//Assert::same('', (string) $html);
-
-		$dom = Tester\DomQuery::fromHtml($html);
-
-		$this->checkInlineCheckbox($dom, 0, 'Monday');
-		$this->checkInlineCheckbox($dom, 1, 'Tuesday');
-		$this->checkInlineCheckbox($dom, 2, 'Wednesday');
-		$this->checkInlineCheckbox($dom, 3, 'Thurstday');
-		$this->checkInlineCheckbox($dom, 4, 'Friday');
-		$this->checkInlineCheckbox($dom, 5, 'Saturday');
-		$this->checkInlineCheckbox($dom, 6, 'Sunday');
-
-		Assert::same('Week radio', (string) $dom->find('div.form-check')[7]);
-		$this->checkInlineRadio($dom, 7, 'Monday');
-		$this->checkInlineRadio($dom, 8, 'Tuesday');
-		$this->checkInlineRadio($dom, 9, 'Wednesday');
-		$this->checkInlineRadio($dom, 10, 'Thurstday');
-		$this->checkInlineRadio($dom, 11, 'Friday');
-		$this->checkInlineRadio($dom, 12, 'Saturday');
-	}
-
-
-	public function testVerticalInlineForm()
-	{
-		$form = $this->createBaseFormWithRenderer();
-
-		//inline form
-		$renderer = $form->getRenderer();
-		$renderer->setFormInline();
-
-		$form->addEmail('loginemail', 'E-mail address:')
-			->setAttribute('placeholder', 'Enter e-mail');
-		$form->addPassword('password', 'Password')
-			->setAttribute('placeholder', 'Password');
-		$form->addCheckbox('checkbox', 'Check me out');
-
-		$form->addSubmit('submit', 'Login')->setAttribute('class', 'btn btn-primary');
-
-		$html = (string) $form;
-
-		//Assert::same('', (string) $html);
-
-		$dom = Tester\DomQuery::fromHtml($html);
-
-		Assert::same('form-inline', (string) $dom->find('form.form-inline')[0]->attributes()['class']);
-
-		Assert::same('form-control mb-2 mr-sm-2 mb-sm-0', (string) $dom->find('input')[0]->attributes()['class']);
-		Assert::same('form-control mb-2 mr-sm-2 mb-sm-0', (string) $dom->find('input')[1]->attributes()['class']);
-		Assert::same('form-check-input', (string) $dom->find('input')[2]->attributes()['class']);
-		Assert::same('form-check mb-2 mr-sm-2 mb-sm-0', (string) $dom->find('div')[2]->attributes()['class']);
-	}
-
-
-	private function checkInlineCheckbox($dom, $position, $label)
-	{
-		Assert::contains('form-check form-check-inline', (string) $dom->find('div.form-check.form-check-inline')[$position]->attributes()['class']);
-		Assert::same($label, (string) $dom->find('div label')[$position]);
-		Assert::contains('form-check-label', (string) $dom->find('div label')[$position]->attributes()['class']);
-		Assert::contains('form-check-input', (string) $dom->find('div label input')[$position]->attributes()['class']);
-	}
-
-
-	private function checkInlineRadio($dom, $position, $label)
-	{
-		Assert::contains('form-check form-check-inline', (string) $dom->find('div.form-check.form-check-inline')[$position]->attributes()['class']);
-		Assert::same($label, (string) $dom->find('div label')[$position]);
-		Assert::contains('form-check-label', (string) $dom->find('div label')[$position]->attributes()['class']);
-		Assert::contains('form-check-input', (string) $dom->find('div label input')[$position]->attributes()['class']);
-	}
-
-
 	/**
 	 * @param Form $form
 	 * @return Form
@@ -216,6 +121,101 @@ class BootstrapVerticalRendererV4 extends Tester\TestCase
 		$form->addSubmit('submit', 'Submit')->setAttribute('class', 'btn btn-primary');
 
 		return $form;
+	}
+
+
+	public function testVerticalCheckInlineForm()
+	{
+		$form = $this->createBaseFormWithRenderer();
+
+		$form->addCheckbox('mondayCheckbox', 'Monday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
+		$form->addCheckbox('tuesdayCheckbox', 'Tuesday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
+		$form->addCheckbox('wednesdayCheckbox', 'Wednesday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
+		$form->addCheckbox('thurstdayCheckbox', 'Thurstday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
+		$form->addCheckbox('fridayCheckbox', 'Friday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
+		$form->addCheckbox('saturdayCheckbox', 'Saturday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
+		$form->addCheckbox('sundayCheckbox', 'Sunday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
+
+		$form->addRadioList('weekRadio', 'Week radio', [
+			'monday' => 'Monday',
+			'tuesday' => 'Tuesday',
+			'wednesday' => 'Wednesday',
+			'thurstday' => 'Thurstday',
+			'friday' => 'Friday',
+			'saturday' => 'Saturday',
+			'sunday' => 'Sunday',
+		])->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
+
+		$html = (string) $form;
+
+		//Assert::same('', (string) $html);
+
+		$dom = Tester\DomQuery::fromHtml($html);
+
+		$this->checkInlineCheckbox($dom, 0, 'Monday');
+		$this->checkInlineCheckbox($dom, 1, 'Tuesday');
+		$this->checkInlineCheckbox($dom, 2, 'Wednesday');
+		$this->checkInlineCheckbox($dom, 3, 'Thurstday');
+		$this->checkInlineCheckbox($dom, 4, 'Friday');
+		$this->checkInlineCheckbox($dom, 5, 'Saturday');
+		$this->checkInlineCheckbox($dom, 6, 'Sunday');
+
+		Assert::same('Week radio', (string) $dom->find('div.form-check')[7]);
+		Assert::same('form-check', (string) $dom->find('div.form-check')[8]->attributes()['class']);
+		$this->checkInlineRadio($dom, 7, 'Monday');
+		$this->checkInlineRadio($dom, 8, 'Tuesday');
+		$this->checkInlineRadio($dom, 9, 'Wednesday');
+		$this->checkInlineRadio($dom, 10, 'Thurstday');
+		$this->checkInlineRadio($dom, 11, 'Friday');
+		$this->checkInlineRadio($dom, 12, 'Saturday');
+	}
+
+
+	public function testVerticalInlineForm()
+	{
+		$form = $this->createBaseFormWithRenderer();
+
+		//inline form
+		$renderer = $form->getRenderer();
+		$renderer->setFormInline();
+
+		$form->addEmail('loginemail', 'E-mail address:')
+			->setAttribute('placeholder', 'Enter e-mail');
+		$form->addPassword('password', 'Password')
+			->setAttribute('placeholder', 'Password');
+		$form->addCheckbox('checkbox', 'Check me out');
+
+		$form->addSubmit('submit', 'Login')->setAttribute('class', 'btn btn-primary');
+
+		$html = (string) $form;
+
+		//Assert::same('', (string) $html);
+
+		$dom = Tester\DomQuery::fromHtml($html);
+
+		Assert::same('form-inline', (string) $dom->find('form.form-inline')[0]->attributes()['class']);
+
+		Assert::same('form-control mb-2 mr-sm-2 mb-sm-0', (string) $dom->find('input')[0]->attributes()['class']);
+		Assert::same('form-control mb-2 mr-sm-2 mb-sm-0', (string) $dom->find('input')[1]->attributes()['class']);
+		Assert::same('form-check-input', (string) $dom->find('input')[2]->attributes()['class']);
+		Assert::same('form-check mb-2 mr-sm-2 mb-sm-0', (string) $dom->find('div')[2]->attributes()['class']);
+	}
+
+
+	private function checkInlineCheckbox($dom, $position, $label)
+	{
+		Assert::contains('form-check form-check-inline', (string) $dom->find('div.form-check.form-check-inline')[$position]->attributes()['class']);
+		Assert::same($label, (string) $dom->find('div label')[$position]);
+		Assert::contains('form-check-label', (string) $dom->find('div label')[$position]->attributes()['class']);
+		Assert::contains('form-check-input', (string) $dom->find('div label input')[$position]->attributes()['class']);
+	}
+
+
+	private function checkInlineRadio($dom, $position, $label)
+	{
+		Assert::contains($label, (string) $dom->find('div label')[$position]);
+		Assert::contains('form-check-label', (string) $dom->find('div label')[$position]->attributes()['class']);
+		Assert::contains('form-check-input', (string) $dom->find('div label input')[$position]->attributes()['class']);
 	}
 }
 

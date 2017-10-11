@@ -96,6 +96,8 @@ $form->addText('disabled', 'Disabled:')
 
 
 $form->addSubmit('submit', 'Submit')->setAttribute('class', 'btn btn-primary');
+
+return $form;
 ```
 ## Horizontal orientation form
 ```php
@@ -195,4 +197,6 @@ $form->addPassword('password', 'Password')
 $form->addCheckbox('checkbox', 'Check me out');
 
 $form->addSubmit('submit', 'Login')->setAttribute('class', 'btn btn-primary');
+
+return $form;
 ```
