@@ -160,8 +160,8 @@ class BootstrapVerticalRendererV4 extends Tester\TestCase
 		$this->checkInlineCheckbox($dom, 5, 'Saturday');
 		$this->checkInlineCheckbox($dom, 6, 'Sunday');
 
-		Assert::same('Week radio', (string) $dom->find('div.form-check')[7]);
-		Assert::same('form-check', (string) $dom->find('div.form-check')[8]->attributes()['class']);
+		Assert::same('Week radio', (string) $dom->find('fieldset legend label')[0]);
+		Assert::same('form-check form-check-inline', (string) $dom->find('div.form-check')[8]->attributes()['class']);
 		$this->checkInlineRadio($dom, 7, 'Monday');
 		$this->checkInlineRadio($dom, 8, 'Tuesday');
 		$this->checkInlineRadio($dom, 9, 'Wednesday');
@@ -207,15 +207,15 @@ class BootstrapVerticalRendererV4 extends Tester\TestCase
 		Assert::contains('form-check form-check-inline', (string) $dom->find('div.form-check.form-check-inline')[$position]->attributes()['class']);
 		Assert::same($label, (string) $dom->find('div label')[$position]);
 		Assert::contains('form-check-label', (string) $dom->find('div label')[$position]->attributes()['class']);
-		Assert::contains('form-check-input', (string) $dom->find('div label input')[$position]->attributes()['class']);
+		Assert::contains('form-check-input', (string) $dom->find('div input')[$position]->attributes()['class']);
 	}
 
 
 	private function checkInlineRadio($dom, $position, $label)
 	{
-		Assert::contains($label, (string) $dom->find('div label')[$position]);
-		Assert::contains('form-check-label', (string) $dom->find('div label')[$position]->attributes()['class']);
-		Assert::contains('form-check-input', (string) $dom->find('div label input')[$position]->attributes()['class']);
+		Assert::contains($label, (string) $dom->find('div.form-check label')[$position]);
+		Assert::contains('form-check-label', (string) $dom->find('div.form-check label')[$position]->attributes()['class']);
+		Assert::contains('form-check-input', (string) $dom->find('div input')[$position]->attributes()['class']);
 	}
 }
 

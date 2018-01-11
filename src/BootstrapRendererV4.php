@@ -136,7 +136,9 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 			$label = $control->getLabelPart($key)->addClass('form-check-label');//label
 
 			$formCheck = Html::el('div')->addClass('form-check');
-			$formCheck->addClass('form-check-inline');
+			if ($control->getOption('orientation', null) == self::FORM_CHECK_INLINE) {
+				$formCheck->class(self::FORM_CHECK_INLINE, true);
+			}
 
 			$formCheck->addHtml($input);
 			$formCheck->addHtml($label);
@@ -314,12 +316,18 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 				} else {
 					$el = $this->getWrapper('control checkbox');
 				}
-				$el->addHtml($control->getControlPart());
-				$el->addHtml($control->getLabelPart());
+
+				if ($control->getOption('orientation', null) == self::FORM_CHECK_INLINE) {
+					$el->class(self::FORM_CHECK_INLINE, true);
+				}
+
+				$input = $control->getControlPart()->addClass('form-check-input');//input
+				$label = $control->getLabelPart()->addClass('form-check-label');//label
+
+				$el->addHtml($input);
+				$el->addHtml($label);
 			} else {
 				//radio
-
-
 				$input = $control->getControlPart();
 				$items = $control->getItems();
 				$ids = [];
