@@ -123,6 +123,27 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 		$this->formControlLabelWidth = $formControlLabelWidth;
 	}
 
+	private function generateRadioControls(Nette\Forms\IControl $control, ?Html $labelPart): Html {
+		$fieldset = Html::el('fieldset')->addClass('form-group');
+		if($labelPart != "") {
+			$fieldset->addHtml(Html::el('legend')->addHtml($labelPart));
+		}
+
+		foreach ($control->items as $key => $labelTitle) {
+			$input = $control->getControlPart($key)->addClass('form-check-input');//input
+			$label = $control->getLabelPart($key)->addClass('form-check-label');//label
+
+			$formCheck = Html::el('div')->addClass('form-check');
+			$formCheck->addClass('form-check-inline');
+
+			$formCheck->addHtml($input);
+			$formCheck->addHtml($label);
+
+			$fieldset->addHtml($formCheck);
+		}
+
+		return $fieldset;
+	}
 
 	/**
 	 * Renders single visual row.
@@ -132,67 +153,39 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 		if ($control->getOption('type') === 'radio' && $control->getOption('orientation', null) == self::FORM_CHECK_INLINE) {
 			$radios = Html::el(null);
 
+			$pair = $this->getWrapper('pair container');
+
 			//title for radio
 			if ($this->isFormVerticalOrientation()) {
-				//vertical form, one line with title, newxt line with radios
-				$pair = $this->getWrapper('control checkbox');
-				$pair->addHtml($control->getCaption());
-
-				$radios->addHtml($pair);
-
-				$divForControls = $this->getWrapper('control checkbox');
-				foreach ($control->items as $key => $labelTitle) {
-					$controlPartIn = $control->getControlPart($key);
-					$controlPartIn->addClass('form-check-input');
-
-					$radioControlHtml = $control->getLabelPart($key);
-					$radioControlHtml->setHtml('');//remove label. Label is before input, must be after input
-					$radioControlHtml->addClass('form-check-label');
-					$radioControlHtml->addHtml($controlPartIn);
-					$radioControlHtml->addHtml($labelTitle);
-
-					$divForControls->addHtml($radioControlHtml);
-				}
-				$radios->addHtml($divForControls);
+				//vertical form, one line with title, next line with radios
+				$pair->addHtml($this->generateRadioControls($control, $control->getLabelPart()));
 			} else {
 				//horizontal form, one linew with title and with radios
-				$label = $this->getWrapper('label container');
-				$label->setHtml($control->getCaption());
-				$pair = $this->getWrapper('pair container')->addHtml($label);
+				$labelContainer = $this->getWrapper('label container')->addHtml($control->getLabelPart());
+				$controlContainer = $this->getWrapper('control container');
+				$controlContainer->addHtml($this->generateRadioControls($control, null));
 
-				$divForControls = $this->getWrapper('control container');
-
-				foreach ($control->items as $key => $labelTitle) {
-					$controlPartIn = $control->getControlPart($key);
-					$controlPartIn->addClass('form-check-input');
-
-					$radioControlHtml = $control->getLabelPart($key);
-					$radioControlHtml->setHtml('');//remove label. Label is before input, must be after input
-					$radioControlHtml->addClass('form-check-label');
-					$radioControlHtml->addHtml($controlPartIn);
-					$radioControlHtml->addHtml($labelTitle);
-					$divForControls->addHtml($radioControlHtml);
-				}
-
-				$pair->addHtml($divForControls);
-
-				$radios->addHtml($pair);//add pari with title and radios on one line
+				$pair->addHtml($labelContainer);
+				$pair->addHtml($controlContainer);
 			}
+
+			$radios->addHtml($pair);//add pari with title and radios on one line
 			return $radios->render(0);
+
 		} elseif ($control->getOption('type') === 'checkbox') {
 			if ($this->isFormVerticalOrientation()) {
-				//default form without orientation
-				$pair = $this->getWrapper('control checkbox');
+				//default vertical orientation
+				$pair = Html::el('div')->addClass('form-check');
 				if ($control->getOption('orientation', null) == self::FORM_CHECK_INLINE) {
 					$pair->class(self::FORM_CHECK_INLINE, true);
 				}
 			} else {
-				//horizontalni formular
+				//horizontal formular (2 colms)
 				if ($control->getOption('orientation', null) == self::FORM_CHECK_INLINE) {
 					$pair = $this->getWrapper('pair container');
 				} else {
 					$pair = $this->getWrapper('pair container');
-					//$pair = $this->getWrapper('control checkbox');//nevim podle ceho dat checkboxy na 1 radek v horizontalnim formulari
+					//@TODO how to set many checkboxes on same line? problem...
 				}
 			}
 
@@ -265,6 +258,11 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 				}
 			}
 
+			if($control->getOption('type') === 'radio' && $this->isFormVerticalOrientation()) {
+				//label for radio is in fieldset, not shwo here
+				$label = '';
+			}
+
 			return $this->getWrapper('label container')->setHtml((string) $label);
 		}
 	}
@@ -301,12 +299,57 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 			if ($control instanceof Nette\Forms\Controls\Checkbox) {
 				$control->getLabelPrototype()->addClass('form-check-label');
 			} else {
+				$control->getItemLabelPrototype()->addClass('form-check');
 				$control->getItemLabelPrototype()->addClass('form-check-label');
 			}
 			$control->getControlPrototype()->addClass('form-check-input');
-		}
 
-		$el = $control->getControl();
+			if($control->getOption('type') == 'checkbox') {
+				//checkbox
+				if ($this->isFormVerticalOrientation()) {
+					$el = Html::el('');
+				} else {
+					$el = $this->getWrapper('control checkbox');
+				}
+				$el->addHtml($control->getControlPart());
+				$el->addHtml($control->getLabelPart());
+			} else {
+				//radio
+
+
+				$input = $control->getControlPart();
+				$items = $control->getItems();
+				$ids = [];
+				if ($control->generateId) {
+					foreach ($items as $value => $label) {
+						$ids[$value] = $input->id . '-' . $value;
+					}
+				}
+				$elControl = $control->getContainerPrototype()->setHtml(
+					Nette\Forms\Helpers::createInputList(
+						$control->translate($items),
+						array_merge($input->attrs, [
+							'id:' => $ids,
+							'checked?' => $control->getValue(),
+							'disabled:' => $control->isDisabled(),
+							//'data-nette-rules:' => [key($items) => $input->attrs['data-nette-rules']],
+						]),
+						['for:' => $ids] + $control->getItemLabelPrototype()->attrs,
+						//$control->getSeparatorPrototype()
+						Html::el('div')
+					)
+				);
+
+				$el = Html::el('fieldset')->addClass('form-group');
+				if ($this->isFormVerticalOrientation()) {
+					$el->addHtml(Html::el('legend')->addHtml($control->getLabelPart()));
+				}
+				$el->addHtml($elControl);
+			}
+
+		} else {
+			$el = $control->getControl();
+		}
 
 		if ($control->getOption('type') === 'text' || $control->getOption('type') === 'textarea' || $control->getOption('type') === 'select') {
 			$el->class('form-control', true);
