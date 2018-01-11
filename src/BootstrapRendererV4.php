@@ -123,9 +123,11 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 		$this->formControlLabelWidth = $formControlLabelWidth;
 	}
 
-	private function generateRadioControls(Nette\Forms\IControl $control, ?Html $labelPart): Html {
+
+	private function generateRadioControls(Nette\Forms\IControl $control, ?Html $labelPart): Html
+	{
 		$fieldset = Html::el('fieldset')->addClass('form-group');
-		if($labelPart != "") {
+		if ($labelPart != '') {
 			$fieldset->addHtml(Html::el('legend')->addHtml($labelPart));
 		}
 
@@ -144,6 +146,7 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 
 		return $fieldset;
 	}
+
 
 	/**
 	 * Renders single visual row.
@@ -258,7 +261,7 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 				}
 			}
 
-			if($control->getOption('type') === 'radio' && $this->isFormVerticalOrientation()) {
+			if ($control->getOption('type') === 'radio' && $this->isFormVerticalOrientation()) {
 				//label for radio is in fieldset, not shwo here
 				$label = '';
 			}
@@ -304,7 +307,7 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 			}
 			$control->getControlPrototype()->addClass('form-check-input');
 
-			if($control->getOption('type') == 'checkbox') {
+			if ($control->getOption('type') == 'checkbox') {
 				//checkbox
 				if ($this->isFormVerticalOrientation()) {
 					$el = Html::el('');
