@@ -216,7 +216,7 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 
 
 	/**
-	 * Renders single visual row of multiple controls.
+	 * Renders single visual row of multiple controls (SubmitButton).
 	 * @param  Nette\Forms\IControl[]
 	 */
 	public function renderPairMulti(array $controls): string
@@ -235,12 +235,15 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 		if ($this->isFormVerticalOrientation()) {
 			//is vertical form
 			$pair = Html::el('');
+			$divForControl = Html::el('');
 		} else {
-			//is horizontal form
+			//is horizontal form (2colums)
 			$pair = $this->getWrapper('pair container');
+			$divForControl = Html::el('div')->addClass('col');
 		}
+
 		$pair->addHtml($this->renderLabel($control));
-		$pair->addHtml($this->getWrapper('control container')->setHtml(implode(' ', $s)));
+		$pair->addHtml($divForControl->setHtml(implode(' ', $s)));
 		return $pair->render(0);
 	}
 
