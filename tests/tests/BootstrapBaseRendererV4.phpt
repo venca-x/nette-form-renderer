@@ -28,7 +28,7 @@ class BootstrapVerticalRendererV4 extends Tester\TestCase
 
 		//test html description
 		$form->addEmail('exampleInputEmail1', 'Email address:')
-			->setAttribute('placeholder', 'Enter email')
+			->setHtmlAttribute('placeholder', 'Enter email')
 			->setOption('description', Html::el('strong', 'E-mail'));
 
 		//test require

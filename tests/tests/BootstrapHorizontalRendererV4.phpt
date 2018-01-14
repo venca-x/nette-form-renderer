@@ -60,10 +60,10 @@ class BootstrapHorizontalRendererV4 extends Tester\TestCase
 	private function addInputs(Form $form): Form
 	{
 		$form->addEmail('exampleInputEmail1', 'Email address:')
-			->setAttribute('placeholder', 'Enter email')
+			->setHtmlAttribute('placeholder', 'Enter email')
 			->setOption('description', 'We\'ll never share your email with anyone else.');
 		$form->addPassword('exampleInputPassword1', 'Password')
-			->setAttribute('placeholder', 'Password');
+			->setHtmlAttribute('placeholder', 'Password');
 		$form->addCheckbox('checkbox', 'Check me out');
 		$form->addCheckbox('checkbox2', 'Check me out2');
 
@@ -74,7 +74,7 @@ class BootstrapHorizontalRendererV4 extends Tester\TestCase
 		]);
 
 		$form->addEmail('exampleInputEmail2', 'Email address')
-			->setAttribute('placeholder', 'name@example.com');
+			->setHtmlAttribute('placeholder', 'name@example.com');
 
 		$form->addSelect('exampleSelect', 'Example select', [
 			'1',
@@ -98,34 +98,34 @@ class BootstrapHorizontalRendererV4 extends Tester\TestCase
 
 		//sizes
 		$form->addEmail('formControlLg', '.form-control-lg')
-			->setAttribute('class', 'form-control-lg')
-			->setAttribute('placeholder', '.form-control-lg');
+			->setHtmlAttribute('class', 'form-control-lg')
+			->setHtmlAttribute('placeholder', '.form-control-lg');
 
 		$form->addEmail('formControl', '.form-control')
-			->setAttribute('placeholder', 'Default input');
+			->setHtmlAttribute('placeholder', 'Default input');
 
 		$form->addEmail('formControlSm', '.form-control-sm')
-			->setAttribute('class', 'form-control-sm')
-			->setAttribute('placeholder', '.form-control-sm');
+			->setHtmlAttribute('class', 'form-control-sm')
+			->setHtmlAttribute('placeholder', '.form-control-sm');
 
 
 		//sizes select
 		$form->addSelect('largeSelect', 'Large select', ['Large select'])
-			->setAttribute('class', 'form-control-lg');
+			->setHtmlAttribute('class', 'form-control-lg');
 
 		$form->addSelect('defaultSelect', ' Default select', ['Default select']);
 
 		$form->addSelect('smallSelect', 'Small select', ['Small select'])
-			->setAttribute('class', 'form-control-sm');
+			->setHtmlAttribute('class', 'form-control-sm');
 
 
 		//disables
 		$form->addText('disabled', 'Disabled:')
-			->setAttribute('placeholder', 'Disabled input here…')
+			->setHtmlAttribute('placeholder', 'Disabled input here…')
 			->setDisabled(true);
 
 
-		$form->addSubmit('submit', 'Submit')->setAttribute('class', 'btn btn-primary');
+		$form->addSubmit('submit', 'Submit')->setHtmlAttribute('class', 'btn btn-primary');
 
 		return $form;
 	}
