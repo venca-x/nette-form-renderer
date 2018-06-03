@@ -35,7 +35,7 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 	{
 		$renderer->wrappers['error']['container'] = 'div';
 		$renderer->wrappers['error']['item'] = 'div class="alert alert-danger"';
-		
+
 		$this->wrappers['controls']['container'] = null;
 		if ($this->isFormVerticalOrientation()) {
 			$this->wrappers['pair']['container'] = 'div class="form-group"';//vertical
