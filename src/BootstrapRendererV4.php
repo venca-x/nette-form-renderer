@@ -33,6 +33,7 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 	 */
 	public function renderBegin(): string
 	{
+		$renderer = new \stdClass();
 		$renderer->wrappers['error']['container'] = 'div';
 		$renderer->wrappers['error']['item'] = 'div class="alert alert-danger"';
 
