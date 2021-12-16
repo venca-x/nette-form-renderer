@@ -335,9 +335,12 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 				$input = $control->getControlPart();
 				$items = $control->getItems();
 				$ids = [];
+				$values = [];
+
 				if ($control->generateId) {
 					foreach ($items as $value => $label) {
 						$ids[$value] = $input->id . '-' . $value;
+						$values[$value] = $value;
 					}
 				}
 				$elControl = $control->getContainerPrototype()->setHtml(
@@ -345,6 +348,7 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 						$control->translate($items),
 						array_merge($input->attrs, [
 							'id:' => $ids,
+							'value:' => $values,
 							'checked?' => $control->getValue(),
 							'disabled:' => $control->isDisabled(),
 							//'data-nette-rules:' => [key($items) => $input->attrs['data-nette-rules']],
