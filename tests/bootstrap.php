@@ -7,38 +7,27 @@ if (@!include __DIR__ . '/../vendor/autoload.php') {
 	exit(1);
 }
 
-// configure environment
+
 Tester\Environment::setup();
 date_default_timezone_set('Europe/Prague');
 
-// output buffer level check
-register_shutdown_function(function ($level) {
-	Tester\Assert::same($level, ob_get_level());
-}, ob_get_level());
 
-
-function test(\Closure $function)
+/**
+ * @param Closure|null $function
+ * @return mixed|void|null
+ */
+function before(?Closure $function = null)
 {
-	$function();
-	Mockery::close();
+	static $val;
+	if (!func_num_args()) {
+		return $val ? $val() : null;
+	}
+	$val = $function;
 }
 
 
-class Notes
+function test(string $title, Closure $function): void
 {
-	public static $notes = [];
-
-
-	public static function add($message)
-	{
-		self::$notes[] = $message;
-	}
-
-
-	public static function fetch()
-	{
-		$res = self::$notes;
-		self::$notes = [];
-		return $res;
-	}
+	before();
+	$function();
 }

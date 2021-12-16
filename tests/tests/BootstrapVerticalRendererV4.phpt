@@ -16,7 +16,7 @@ class BootstrapVerticalRendererV4 extends Tester\TestCase
 	private function createBaseFormWithRenderer()
 	{
 		$form = new Form;
-		$form->setRenderer(new VencaX\NetteFormRenderer\BootstrapRendererV4());
+		$form->setRenderer(new VencaX\NetteFormRenderer\BootstrapRendererV4);
 		return $form;
 	}
 
@@ -45,10 +45,6 @@ class BootstrapVerticalRendererV4 extends Tester\TestCase
 	}
 
 
-	/**
-	 * @param Form $form
-	 * @return Form
-	 */
 	private function addInputs(Form $form): Form
 	{
 		$form->addEmail('exampleInputEmail1', 'Email address:')
@@ -219,5 +215,5 @@ class BootstrapVerticalRendererV4 extends Tester\TestCase
 	}
 }
 
-$test = new BootstrapVerticalRendererV4();
+$test = new BootstrapVerticalRendererV4;
 $test->run();

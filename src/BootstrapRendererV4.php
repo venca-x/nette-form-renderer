@@ -33,26 +33,26 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 	 */
 	public function renderBegin(): string
 	{
-		$renderer = new \stdClass();
+		$renderer = new \stdClass;
 		$renderer->wrappers['error']['container'] = 'div';
 		$renderer->wrappers['error']['item'] = 'div class="alert alert-danger"';
 
 		$this->wrappers['controls']['container'] = null;
 		if ($this->isFormVerticalOrientation()) {
-			$this->wrappers['pair']['container'] = 'div class="form-group"';//vertical
+			$this->wrappers['pair']['container'] = 'div class="form-group"'; //vertical
 		} else {
-			$this->wrappers['pair']['container'] = 'div class="form-group row"';//horizontal
+			$this->wrappers['pair']['container'] = 'div class="form-group row"'; //horizontal
 		}
 		$this->wrappers['pair']['.error'] = 'has-danger';
 		if ($this->isFormVerticalOrientation()) {
-			$this->wrappers['control']['container'] = null;//vertical
+			$this->wrappers['control']['container'] = null; //vertical
 		} else {
-			$this->wrappers['control']['container'] = 'div class="' . $this->formControlContainerWidth . '"';//horizontal
+			$this->wrappers['control']['container'] = 'div class="' . $this->formControlContainerWidth . '"'; //horizontal
 		}
 		if ($this->isFormVerticalOrientation()) {
-			$this->wrappers['label']['container'] = null;//vertical
+			$this->wrappers['label']['container'] = null; //vertical
 		} else {
-			$this->wrappers['label']['container'] = 'div class="' . $this->formControlLabelWidth . ' col-form-label"';//horizontal
+			$this->wrappers['label']['container'] = 'div class="' . $this->formControlLabelWidth . ' col-form-label"'; //horizontal
 		}
 		$this->wrappers['control']['checkbox'] = 'div class="form-check"';
 		$this->wrappers['control']['description'] = 'small';
@@ -110,18 +110,12 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 	}
 
 
-	/**
-	 * @param string $formControlContainerWidth
-	 */
 	public function setFormControlContainerWidth(string $formControlContainerWidth)
 	{
 		$this->formControlContainerWidth = $formControlContainerWidth;
 	}
 
 
-	/**
-	 * @param string $formControlLabelWidth
-	 */
 	public function setFormControlLabelWidth(string $formControlLabelWidth)
 	{
 		$this->formControlLabelWidth = $formControlLabelWidth;
@@ -136,8 +130,8 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 		}
 
 		foreach ($control->items as $key => $labelTitle) {
-			$input = $control->getControlPart($key)->addClass('form-check-input');//input
-			$label = $control->getLabelPart($key)->addClass('form-check-label');//label
+			$input = $control->getControlPart($key)->addClass('form-check-input'); //input
+			$label = $control->getLabelPart($key)->addClass('form-check-label'); //label
 
 			$formCheck = Html::el('div')->addClass('form-check');
 			if ($control->getOption('orientation', null) == self::FORM_CHECK_INLINE) {
@@ -159,7 +153,10 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 	 */
 	public function renderPair(Nette\Forms\IControl $control): string
 	{
-		if ($control->getOption('type') === 'radio' && $control->getOption('orientation', null) == self::FORM_CHECK_INLINE) {
+		if (
+			$control->getOption('type') === 'radio'
+			&& $control->getOption('orientation', null) == self::FORM_CHECK_INLINE
+		) {
 			$radios = Html::el(null);
 
 			$pair = $this->getWrapper('pair container');
@@ -178,7 +175,7 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 				$pair->addHtml($controlContainer);
 			}
 
-			$radios->addHtml($pair);//add pari with title and radios on one line
+			$radios->addHtml($pair); //add pari with title and radios on one line
 			return $radios->render(0);
 
 		} elseif ($control->getOption('type') === 'checkbox') {
@@ -328,8 +325,8 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 					$el->class(self::FORM_CHECK_INLINE, true);
 				}
 
-				$input = $control->getControlPart()->addClass('form-check-input');//input
-				$label = $control->getLabelPart()->addClass('form-check-label');//label
+				$input = $control->getControlPart()->addClass('form-check-input'); //input
+				$label = $control->getLabelPart()->addClass('form-check-label'); //label
 
 				$el->addHtml($input);
 				$el->addHtml($label);
@@ -369,7 +366,11 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 			$el = $control->getControl();
 		}
 
-		if ($control->getOption('type') === 'text' || $control->getOption('type') === 'textarea' || $control->getOption('type') === 'select') {
+		if (
+			$control->getOption('type') === 'text'
+			|| $control->getOption('type') === 'textarea'
+			|| $control->getOption('type') === 'select'
+		) {
 			$el->class('form-control', true);
 
 			if ($this->isFormInline()) {

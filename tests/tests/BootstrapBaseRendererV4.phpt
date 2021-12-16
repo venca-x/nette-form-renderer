@@ -17,7 +17,7 @@ class BootstrapVerticalRendererV4 extends Tester\TestCase
 	private function createBaseFormWithRenderer()
 	{
 		$form = new Form;
-		$form->setRenderer(new VencaX\NetteFormRenderer\BootstrapRendererV4());
+		$form->setRenderer(new VencaX\NetteFormRenderer\BootstrapRendererV4);
 		return $form;
 	}
 
@@ -45,10 +45,10 @@ class BootstrapVerticalRendererV4 extends Tester\TestCase
 		Assert::same('E-mail', (string) $dom->find('strong')[0]);
 
 		//require
-		Assert::contains('required', (string) $dom->find('div.form-group')[1]->attributes()['class']);//.form-group has class require
-		Assert::contains('required', (string) $dom->find('div.form-group label')[1]->attributes()['class']);//label has required
+		Assert::contains('required', (string) $dom->find('div.form-group')[1]->attributes()['class']); //.form-group has class require
+		Assert::contains('required', (string) $dom->find('div.form-group label')[1]->attributes()['class']); //label has required
 	}
 }
 
-$test = new BootstrapVerticalRendererV4();
+$test = new BootstrapVerticalRendererV4;
 $test->run();
