@@ -2,7 +2,7 @@
   "name": "nette-form-renderer",
   "version": "1.0.0",
   "description": "Nette form renderer (Twitter bootstrap v4)",
-  "main": "Gruntfile.js",
+  "main": "gulpfile.js",
   "directories": {
     "test": "tests"
   },
@@ -25,9 +25,7 @@
   },
   "homepage": "https://github.com/venca-x/nette-form-renderer#readme",
   "devDependencies": {
-    "grunt": "^1.0.1",
-    "grunt-cli": "^1.2.0",
-    "grunt-shell": "^3.0.1",
-    "load-grunt-tasks": "^5.1.0"
+    "gulp": "^4.0.2",
+    "gulp-shell": "^0.8.0"
   }
 }
