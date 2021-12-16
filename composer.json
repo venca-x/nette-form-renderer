@@ -15,9 +15,7 @@
   },
   "require-dev": {
     "nette/tester": "^2.0",
-    "phpstan/phpstan": "^0.12.45@dev",
-    "squizlabs/php_codesniffer": "^3.0",
-    "symplify/easy-coding-standard": "^8.3"
+    "phpstan/phpstan": "^0.12.45@dev"
   },
   "conflict": {
     "nette/forms": "<3.0",
