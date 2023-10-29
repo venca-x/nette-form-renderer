@@ -64,7 +64,7 @@
 <div class="form-group row">
 	<div class="col-sm-6 col-form-label"><label for="frm-multiUpload">Example multiUpload</label></div>
 
-	<div class="col-sm-6"><input type="file" name="multiUpload[]" multiple id="frm-multiUpload" data-nette-rules='[{"op":":fileSize","msg":"The size of the uploaded file can be up to 2097152 bytes.","arg":2097152}]' class="form-control-file"></div>
+	<div class="col-sm-6"><input type="file" name="multiUpload[]" multiple id="frm-multiUpload" data-nette-rules='[{"op":":fileSize","msg":"The size of the uploaded file can be up to 2097152 bytes.","arg":2097152},{"op":":maxLength","msg":"The maximum allowed number of uploaded files is 20","arg":20}]' class="form-control-file"></div>
 </div>
 
 <div class="form-group row">
