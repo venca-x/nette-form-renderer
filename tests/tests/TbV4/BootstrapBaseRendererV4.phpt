@@ -10,7 +10,7 @@ use Tester;
 use Tester\Assert;
 use VencaX;
 
-require __DIR__ . '/../bootstrap.php';
+require __DIR__ . '/../../bootstrap.php';
 
 class BootstrapVerticalRendererV4 extends Tester\TestCase
 {
