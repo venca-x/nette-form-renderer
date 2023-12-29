@@ -361,8 +361,8 @@ class BootstrapRendererV5 extends Nette\Forms\Rendering\DefaultFormRenderer
 						]),
 						['for:' => $ids] + $control->getItemLabelPrototype()->attrs,
 						//$control->getSeparatorPrototype()
-						Html::el('div')
-					)
+						Html::el('div'),
+					),
 				);
 
 				$el = Html::el('fieldset')->addClass('form-group');
