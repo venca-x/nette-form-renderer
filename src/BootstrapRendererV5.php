@@ -27,6 +27,8 @@ class BootstrapRendererV5 extends Nette\Forms\Rendering\DefaultFormRenderer
 
 	private $formControlContainerWidth = 'col-sm-9';
 
+    private $formVerticalDivMb = 'mb-3';
+
 
 	/**
 	 * Renders form begin.
@@ -43,6 +45,7 @@ class BootstrapRendererV5 extends Nette\Forms\Rendering\DefaultFormRenderer
 		} else {
 			$this->wrappers['pair']['container'] = 'div class="form-group row"'; //horizontal
 		}
+        $this->wrappers['pair']['checkbox'] = 'div class="' . $this->formVerticalDivMb . ' form-check"'; //horizontal
 		$this->wrappers['pair']['.error'] = 'has-danger';
 		if ($this->isFormVerticalOrientation()) {
 			$this->wrappers['control']['container'] = null; //vertical
@@ -181,7 +184,8 @@ class BootstrapRendererV5 extends Nette\Forms\Rendering\DefaultFormRenderer
 		} elseif ($control->getOption('type') === 'checkbox') {
 			if ($this->isFormVerticalOrientation()) {
 				//default vertical orientation
-				$pair = Html::el('div')->addClass('form-check');
+				$pair = $this->getWrapper('pair checkbox');
+
 				if ($control->getOption('orientation', null) == self::FORM_CHECK_INLINE) {
 					$pair->class(self::FORM_CHECK_INLINE, true);
 				}

@@ -32,7 +32,9 @@ class BootstrapVerticalRendererV5 extends Tester\TestCase
 		$form->addTextArea('exampleFormControlTextarea1', 'Example textarea')
 			->setRequired();
 
-        $form->addSubmit('submit', 'Submit')->setHtmlAttribute('class', 'btn btn-primary');
+		$form->addCheckbox('checkbox', 'Check me out');
+
+		$form->addSubmit('submit', 'Submit')->setHtmlAttribute('class', 'btn btn-primary');
 
 		$html = (string) $form;
 

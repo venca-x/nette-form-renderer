@@ -1,20 +1,26 @@
 <form action="" method="post">
 
 
-<div class="row mb-3">
+<div class="mb-3">
 	<label for="frm-exampleFormControlInput1" class="form-label">Email address</label>
 
 	<input type="email" name="exampleFormControlInput1" placeholder="name&#64;example.com" id="frm-exampleFormControlInput1" data-nette-rules='[{"op":":email","msg":"Please enter a valid email address."}]' class="form-control">
 </div>
 
-<div class="row mb-3 required">
+<div class="mb-3 required">
 	<label for="frm-exampleFormControlTextarea1" class="form-label required">Example textarea</label>
 
 	<textarea name="exampleFormControlTextarea1" id="frm-exampleFormControlTextarea1" required data-nette-rules='[{"op":":filled","msg":"This field is required."}]' class="form-control"></textarea>
 </div>
 
+<div class="mb-3 form-check">
 
-	
+
+	<input type="checkbox" name="checkbox" class="form-check-input" id="frm-checkbox"><label class="form-check-label" for="frm-checkbox">Check me out</label>
+</div>
+
+
+
 
 	<input type="submit" name="_submit" class="btn btn-primary button" value="Submit">
 
