@@ -39,7 +39,7 @@ class BootstrapRendererV5 extends Nette\Forms\Rendering\DefaultFormRenderer
 
 		$this->wrappers['controls']['container'] = null;
 		if ($this->isFormVerticalOrientation()) {
-			$this->wrappers['pair']['container'] = 'div class="row mb-3"'; //vertical
+			$this->wrappers['pair']['container'] = 'div class="mb-3"'; //vertical
 		} else {
 			$this->wrappers['pair']['container'] = 'div class="form-group row"'; //horizontal
 		}
@@ -122,7 +122,7 @@ class BootstrapRendererV5 extends Nette\Forms\Rendering\DefaultFormRenderer
 	}
 
 
-	private function generateRadioControls(Nette\Forms\IControl $control, ?Html $labelPart): Html
+	private function generateRadioControls(Nette\Forms\Control $control, ?Html $labelPart): Html
 	{
 		$fieldset = Html::el('fieldset')->addClass('form-group');
 		if ($labelPart != '') {
@@ -151,7 +151,7 @@ class BootstrapRendererV5 extends Nette\Forms\Rendering\DefaultFormRenderer
 	/**
 	 * Renders single visual row.
 	 */
-	public function renderPair(Nette\Forms\IControl $control): string
+	public function renderPair(Nette\Forms\Control $control): string
 	{
 		if (
 			$control->getOption('type') === 'radio'
@@ -218,7 +218,7 @@ class BootstrapRendererV5 extends Nette\Forms\Rendering\DefaultFormRenderer
 
 	/**
 	 * Renders single visual row of multiple controls (SubmitButton).
-	 * @param  Nette\Forms\IControl[]
+	 * @param  Nette\Forms\Control[]
 	 */
 	public function renderPairMulti(array $controls): string
 	{
@@ -252,7 +252,7 @@ class BootstrapRendererV5 extends Nette\Forms\Rendering\DefaultFormRenderer
 	/**
 	 * Renders 'label' part of visual row of controls.
 	 */
-	public function renderLabel(Nette\Forms\IControl $control): Html
+	public function renderLabel(Nette\Forms\Control $control): Html
 	{
 		if ($control->getOption('type') === 'button') {
 			//none label for label
@@ -261,9 +261,8 @@ class BootstrapRendererV5 extends Nette\Forms\Rendering\DefaultFormRenderer
 			$suffix = $this->getValue('label suffix') . ($control->isRequired() ? $this->getValue('label requiredsuffix') : '');
 			$label = $control->getLabel();
 
-            $label->class('form-label', true);
-
 			if ($label instanceof Html) {
+				$label->class('form-label', true);
 				$label->addHtml($suffix);
 				if ($control->isRequired()) {
 					$label->class($this->getValue('control .required'), true);
@@ -283,7 +282,7 @@ class BootstrapRendererV5 extends Nette\Forms\Rendering\DefaultFormRenderer
 	/**
 	 * Renders 'control' part of visual row of controls.
 	 */
-	public function renderControl(Nette\Forms\IControl $control): Html
+	public function renderControl(Nette\Forms\Control $control): Html
 	{
 		$body = $this->getWrapper('control container');
 		if ($this->counter % 2) {
