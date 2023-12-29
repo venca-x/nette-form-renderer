@@ -27,7 +27,7 @@ class BootstrapRendererV5 extends Nette\Forms\Rendering\DefaultFormRenderer
 
 	private $formControlContainerWidth = 'col-sm-9';
 
-    private $formVerticalDivMb = 'mb-3';
+	private $formVerticalDivMb = 'mb-3';
 
 
 	/**
@@ -35,7 +35,7 @@ class BootstrapRendererV5 extends Nette\Forms\Rendering\DefaultFormRenderer
 	 */
 	public function renderBegin(): string
 	{
-		$renderer = new \stdClass;
+		$renderer = new \stdClass();
 		$renderer->wrappers['error']['container'] = 'div';
 		$renderer->wrappers['error']['item'] = 'div class="alert alert-danger"';
 
@@ -45,7 +45,7 @@ class BootstrapRendererV5 extends Nette\Forms\Rendering\DefaultFormRenderer
 		} else {
 			$this->wrappers['pair']['container'] = 'div class="form-group row"'; //horizontal
 		}
-        $this->wrappers['pair']['checkbox'] = 'div class="' . $this->formVerticalDivMb . ' form-check"'; //horizontal
+		$this->wrappers['pair']['checkbox'] = 'div class="' . $this->formVerticalDivMb . ' form-check"'; //horizontal
 		$this->wrappers['pair']['.error'] = 'has-danger';
 		if ($this->isFormVerticalOrientation()) {
 			$this->wrappers['control']['container'] = null; //vertical

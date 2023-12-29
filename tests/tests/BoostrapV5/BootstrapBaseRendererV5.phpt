@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Test\BoostrapV5;
 
 use Nette\Forms\Form;
-use Nette\Utils\Html;
 use Tester;
 use Tester\Assert;
 use VencaX;
@@ -16,8 +15,8 @@ class BootstrapVerticalRendererV5 extends Tester\TestCase
 {
 	private function createBaseFormWithRenderer()
 	{
-		$form = new Form;
-		$form->setRenderer(new VencaX\NetteFormRenderer\BootstrapRendererV5);
+		$form = new Form();
+		$form->setRenderer(new VencaX\NetteFormRenderer\BootstrapRendererV5());
 		return $form;
 	}
 
@@ -48,5 +47,5 @@ class BootstrapVerticalRendererV5 extends Tester\TestCase
 	}
 }
 
-$test = new BootstrapVerticalRendererV5;
+$test = new BootstrapVerticalRendererV5();
 $test->run();
