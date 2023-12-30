@@ -17,21 +17,21 @@ class BootstrapRadioRendererV5 extends Tester\TestCase
 	{
 		$form = $this->createBaseFormWithRenderer();
 
-        $form->addRadioList('country', 'Country', [
-            'cz' => 'Česká republika',
-            'sk' => 'Slovensko',
-            'eu' => 'EU',
-        ]);
+		$form->addRadioList('country', 'Country', [
+			'cz' => 'Česká republika',
+			'sk' => 'Slovensko',
+			'eu' => 'EU',
+		]);
 
-        $form->addRadioList('weekRadionline', 'Week radio 2', [
-            'monday' => 'Monday',
-            'tuesday' => 'Tuesday',
-            'wednesday' => 'Wednesday',
-            'thurstday' => 'Thurstday',
-            'friday' => 'Friday',
-            'saturday' => 'Saturday',
-            'sunday' => 'Sunday',
-        ])->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
+		$form->addRadioList('weekRadionline', 'Week radio 2', [
+			'monday' => 'Monday',
+			'tuesday' => 'Tuesday',
+			'wednesday' => 'Wednesday',
+			'thurstday' => 'Thurstday',
+			'friday' => 'Friday',
+			'saturday' => 'Saturday',
+			'sunday' => 'Sunday',
+		])->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
 
 		$form->addSubmit('submit', 'Submit')->setHtmlAttribute('class', 'btn btn-primary');
 
@@ -41,12 +41,12 @@ class BootstrapRadioRendererV5 extends Tester\TestCase
 	}
 
 
-    private function createBaseFormWithRenderer()
-    {
-        $form = new Form();
-        $form->setRenderer(new VencaX\NetteFormRenderer\BootstrapRendererV5());
-        return $form;
-    }
+	private function createBaseFormWithRenderer()
+	{
+		$form = new Form();
+		$form->setRenderer(new VencaX\NetteFormRenderer\BootstrapRendererV5());
+		return $form;
+	}
 }
 
 $test = new BootstrapRadioRendererV5();

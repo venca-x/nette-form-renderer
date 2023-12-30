@@ -352,8 +352,8 @@ class BootstrapRendererV5 extends Nette\Forms\Rendering\DefaultFormRenderer
 							//'data-nette-rules:' => [key($items) => $input->attrs['data-nette-rules']],
 						]),
 						['for:' => $ids] + $control->getItemLabelPrototype()->attrs,
-						$this->getWrapper('control checkbox')
-					)
+						$this->getWrapper('control checkbox'),
+					),
 				);
 
 				$el = Html::el('fieldset')->addClass('form-group');
