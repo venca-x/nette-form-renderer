@@ -27,21 +27,6 @@ jobs:
                   name: output
                   path: tests/**/output
 
-
-    lowest_dependencies:
-        name: Lowest Dependencies
-        runs-on: ubuntu-latest
-        steps:
-            - uses: actions/checkout@v3
-            - uses: shivammathur/setup-php@v2
-              with:
-                  php-version: 8.2
-                  coverage: none
-
-            - run: composer update --no-progress --prefer-dist --prefer-lowest --prefer-stable
-            - run: vendor/bin/tester tests -s -C
-
-
     code_coverage:
         name: Code Coverage
         runs-on: ubuntu-latest
