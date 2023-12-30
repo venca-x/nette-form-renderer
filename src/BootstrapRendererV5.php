@@ -7,7 +7,7 @@ namespace VencaX\NetteFormRenderer;
 use Nette;
 use Nette\Utils\Html;
 
-class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
+class BootstrapRendererV5 extends Nette\Forms\Rendering\DefaultFormRenderer
 {
 	public const FORM_CHECK_INLINE = 'form-check-inline';
 
@@ -27,6 +27,8 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 
 	private $formControlContainerWidth = 'col-sm-9';
 
+	private $formVerticalDivMb = 'mb-3';
+
 
 	/**
 	 * Renders form begin.
@@ -39,10 +41,11 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 
 		$this->wrappers['controls']['container'] = null;
 		if ($this->isFormVerticalOrientation()) {
-			$this->wrappers['pair']['container'] = 'div class="form-group"'; //vertical
+			$this->wrappers['pair']['container'] = 'div class="' . $this->formVerticalDivMb . '"'; //vertical
 		} else {
 			$this->wrappers['pair']['container'] = 'div class="form-group row"'; //horizontal
 		}
+		$this->wrappers['pair']['checkbox'] = 'div class="' . $this->formVerticalDivMb . ' form-check"'; //horizontal
 		$this->wrappers['pair']['.error'] = 'has-danger';
 		if ($this->isFormVerticalOrientation()) {
 			$this->wrappers['control']['container'] = null; //vertical
@@ -122,7 +125,7 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 	}
 
 
-	private function generateRadioControls(Nette\Forms\IControl $control, ?Html $labelPart): Html
+	private function generateRadioControls(Nette\Forms\Control $control, ?Html $labelPart): Html
 	{
 		$fieldset = Html::el('fieldset')->addClass('form-group');
 		if ($labelPart != '') {
@@ -151,7 +154,7 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 	/**
 	 * Renders single visual row.
 	 */
-	public function renderPair(Nette\Forms\IControl $control): string
+	public function renderPair(Nette\Forms\Control $control): string
 	{
 		if (
 			$control->getOption('type') === 'radio'
@@ -181,7 +184,8 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 		} elseif ($control->getOption('type') === 'checkbox') {
 			if ($this->isFormVerticalOrientation()) {
 				//default vertical orientation
-				$pair = Html::el('div')->addClass('form-check');
+				$pair = $this->getWrapper('pair checkbox');
+
 				if ($control->getOption('orientation', null) == self::FORM_CHECK_INLINE) {
 					$pair->class(self::FORM_CHECK_INLINE, true);
 				}
@@ -191,7 +195,6 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 					$pair = $this->getWrapper('pair container');
 				} else {
 					$pair = $this->getWrapper('pair container');
-					//@TODO how to set many checkboxes on same line? problem...
 				}
 			}
 
@@ -218,7 +221,7 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 
 	/**
 	 * Renders single visual row of multiple controls (SubmitButton).
-	 * @param  Nette\Forms\IControl[]
+	 * @param  Nette\Forms\Control[]
 	 */
 	public function renderPairMulti(array $controls): string
 	{
@@ -252,7 +255,7 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 	/**
 	 * Renders 'label' part of visual row of controls.
 	 */
-	public function renderLabel(Nette\Forms\IControl $control): Html
+	public function renderLabel(Nette\Forms\Control $control): Html
 	{
 		if ($control->getOption('type') === 'button') {
 			//none label for label
@@ -260,7 +263,9 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 		} else {
 			$suffix = $this->getValue('label suffix') . ($control->isRequired() ? $this->getValue('label requiredsuffix') : '');
 			$label = $control->getLabel();
+
 			if ($label instanceof Html) {
+				$label->class('form-label', true);
 				$label->addHtml($suffix);
 				if ($control->isRequired()) {
 					$label->class($this->getValue('control .required'), true);
@@ -280,7 +285,7 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 	/**
 	 * Renders 'control' part of visual row of controls.
 	 */
-	public function renderControl(Nette\Forms\IControl $control): Html
+	public function renderControl(Nette\Forms\Control $control): Html
 	{
 		$body = $this->getWrapper('control container');
 		if ($this->counter % 2) {
@@ -308,7 +313,6 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 			if ($control instanceof Nette\Forms\Controls\Checkbox) {
 				$control->getLabelPrototype()->addClass('form-check-label');
 			} else {
-				$control->getItemLabelPrototype()->addClass('form-check');
 				$control->getItemLabelPrototype()->addClass('form-check-label');
 			}
 			$control->getControlPrototype()->addClass('form-check-input');
@@ -337,12 +341,6 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 				$ids = [];
 				$values = [];
 
-				if ($control->generateId) {
-					foreach ($items as $value => $label) {
-						$ids[$value] = $input->id . '-' . $value;
-						$values[$value] = $value;
-					}
-				}
 				$elControl = $control->getContainerPrototype()->setHtml(
 					Nette\Forms\Helpers::createInputList(
 						$control->translate($items),
@@ -354,8 +352,7 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 							//'data-nette-rules:' => [key($items) => $input->attrs['data-nette-rules']],
 						]),
 						['for:' => $ids] + $control->getItemLabelPrototype()->attrs,
-						//$control->getSeparatorPrototype()
-						Html::el('div'),
+						$this->getWrapper('control checkbox'),
 					),
 				);
 

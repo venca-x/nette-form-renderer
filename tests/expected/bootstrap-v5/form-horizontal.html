@@ -1,0 +1,119 @@
+<form action="" method="post" enctype="multipart/form-data">
+
+
+<div class="form-group row">
+	<div class="col-sm-3 col-form-label"><label for="frm-exampleInputEmail1" class="form-label">Email address:</label></div>
+
+	<div class="col-sm-9"><input type="email" name="exampleInputEmail1" placeholder="Enter email" id="frm-exampleInputEmail1" data-nette-rules='[{"op":":email","msg":"Please enter a valid email address."}]' class="form-control"> <small>We'll never share your email with anyone else.</small></div>
+</div>
+
+<div class="form-group row">
+	<div class="col-sm-3 col-form-label"><label for="frm-exampleInputPassword1" class="form-label">Password</label></div>
+
+	<div class="col-sm-9"><input type="password" name="exampleInputPassword1" placeholder="Password" id="frm-exampleInputPassword1" class="form-control"></div>
+</div>
+
+<div class="form-group row">
+	<div class="col-sm-3 col-form-label"></div>
+
+	<div class="col-sm-9"><div class="form-check"><input type="checkbox" name="checkbox" class="form-check-input" id="frm-checkbox"><label class="form-check-label" for="frm-checkbox">Check me out</label></div></div>
+</div>
+
+<div class="form-group row">
+	<div class="col-sm-3 col-form-label"></div>
+
+	<div class="col-sm-9"><div class="form-check"><input type="checkbox" name="checkbox2" class="form-check-input" id="frm-checkbox2"><label class="form-check-label" for="frm-checkbox2">Check me out2</label></div></div>
+</div>
+
+<div class="form-group row">
+	<div class="col-sm-3 col-form-label"><label class="form-label">Country</label></div>
+
+	<div class="col-sm-9"><fieldset class="form-group"><div class="form-check"><label class="form-check-label"><input type="radio" name="country" class="form-check-input" value="cz">Česká republika</label></div><div class="form-check"><label class="form-check-label"><input type="radio" name="country" class="form-check-input" value="sk">Slovensko</label></div><div class="form-check"><label class="form-check-label"><input type="radio" name="country" class="form-check-input" value="eu">EU</label></div></fieldset></div>
+</div>
+
+<div class="form-group row">
+	<div class="col-sm-3 col-form-label"><label for="frm-exampleInputEmail2" class="form-label">Email address</label></div>
+
+	<div class="col-sm-9"><input type="email" name="exampleInputEmail2" placeholder="name&#64;example.com" id="frm-exampleInputEmail2" data-nette-rules='[{"op":":email","msg":"Please enter a valid email address."}]' class="form-control"></div>
+</div>
+
+<div class="form-group row">
+	<div class="col-sm-3 col-form-label"><label for="frm-exampleSelect" class="form-label">Example select</label></div>
+
+	<div class="col-sm-9"><select name="exampleSelect" id="frm-exampleSelect" class="form-control"><option value="0">1</option><option value="1">2</option><option value="2">3</option><option value="3">4</option><option value="4">5</option></select></div>
+</div>
+
+<div class="form-group row">
+	<div class="col-sm-3 col-form-label"><label for="frm-exampleMultipleSelect" class="form-label">Example multiple select</label></div>
+
+	<div class="col-sm-9"><select name="exampleMultipleSelect[]" id="frm-exampleMultipleSelect" multiple class="form-control"><option value="0">1</option><option value="1">2</option><option value="2">3</option><option value="3">4</option><option value="4">5</option></select></div>
+</div>
+
+<div class="form-group row">
+	<div class="col-sm-3 col-form-label"><label for="frm-textarea" class="form-label">Example textarea</label></div>
+
+	<div class="col-sm-9"><textarea name="textarea" id="frm-textarea" class="form-control"></textarea></div>
+</div>
+
+<div class="form-group row">
+	<div class="col-sm-3 col-form-label"><label for="frm-upload" class="form-label">Example upload</label></div>
+
+	<div class="col-sm-9"><input type="file" name="upload" id="frm-upload" data-nette-rules='[{"op":":fileSize","msg":"The size of the uploaded file can be up to 2097152 bytes.","arg":2097152}]' class="form-control-file"></div>
+</div>
+
+<div class="form-group row">
+	<div class="col-sm-3 col-form-label"><label for="frm-multiUpload" class="form-label">Example multiUpload</label></div>
+
+	<div class="col-sm-9"><input type="file" name="multiUpload[]" multiple id="frm-multiUpload" data-nette-rules='[{"op":":fileSize","msg":"The size of the uploaded file can be up to 2097152 bytes.","arg":2097152},{"op":":maxLength","msg":"The maximum allowed number of uploaded files is 20","arg":20}]' class="form-control-file"></div>
+</div>
+
+<div class="form-group row">
+	<div class="col-sm-3 col-form-label"><label for="frm-formControlLg" class="form-label">.form-control-lg</label></div>
+
+	<div class="col-sm-9"><input type="email" name="formControlLg" class="form-control-lg form-control" placeholder=".form-control-lg" id="frm-formControlLg" data-nette-rules='[{"op":":email","msg":"Please enter a valid email address."}]'></div>
+</div>
+
+<div class="form-group row">
+	<div class="col-sm-3 col-form-label"><label for="frm-formControl" class="form-label">.form-control</label></div>
+
+	<div class="col-sm-9"><input type="email" name="formControl" placeholder="Default input" id="frm-formControl" data-nette-rules='[{"op":":email","msg":"Please enter a valid email address."}]' class="form-control"></div>
+</div>
+
+<div class="form-group row">
+	<div class="col-sm-3 col-form-label"><label for="frm-formControlSm" class="form-label">.form-control-sm</label></div>
+
+	<div class="col-sm-9"><input type="email" name="formControlSm" class="form-control-sm form-control" placeholder=".form-control-sm" id="frm-formControlSm" data-nette-rules='[{"op":":email","msg":"Please enter a valid email address."}]'></div>
+</div>
+
+<div class="form-group row">
+	<div class="col-sm-3 col-form-label"><label for="frm-largeSelect" class="form-label">Large select</label></div>
+
+	<div class="col-sm-9"><select name="largeSelect" class="form-control-lg form-control" id="frm-largeSelect"><option value="0">Large select</option></select></div>
+</div>
+
+<div class="form-group row">
+	<div class="col-sm-3 col-form-label"><label for="frm-defaultSelect" class="form-label"> Default select</label></div>
+
+	<div class="col-sm-9"><select name="defaultSelect" id="frm-defaultSelect" class="form-control"><option value="0">Default select</option></select></div>
+</div>
+
+<div class="form-group row">
+	<div class="col-sm-3 col-form-label"><label for="frm-smallSelect" class="form-label">Small select</label></div>
+
+	<div class="col-sm-9"><select name="smallSelect" class="form-control-sm form-control" id="frm-smallSelect"><option value="0">Small select</option></select></div>
+</div>
+
+<div class="form-group row">
+	<div class="col-sm-3 col-form-label"><label for="frm-disabled" class="form-label">Disabled:</label></div>
+
+	<div class="col-sm-9"><input type="text" name="disabled" placeholder="Disabled input here…" id="frm-disabled" disabled class="form-control"></div>
+</div>
+
+<div class="form-group row">
+
+
+	<div class="col"><input type="submit" name="_submit" class="btn btn-primary button" value="Submit"></div>
+</div>
+
+
+</form>

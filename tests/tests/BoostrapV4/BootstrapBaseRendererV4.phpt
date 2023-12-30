@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Test;
+namespace Test\BoostrapV4;
 
 use Nette\Forms\Form;
 use Nette\Utils\Html;
@@ -10,14 +10,14 @@ use Tester;
 use Tester\Assert;
 use VencaX;
 
-require __DIR__ . '/../bootstrap.php';
+require __DIR__ . '/../../bootstrap.php';
 
 class BootstrapVerticalRendererV4 extends Tester\TestCase
 {
 	private function createBaseFormWithRenderer()
 	{
-		$form = new Form;
-		$form->setRenderer(new VencaX\NetteFormRenderer\BootstrapRendererV4);
+		$form = new Form();
+		$form->setRenderer(new VencaX\NetteFormRenderer\BootstrapRendererV4());
 		return $form;
 	}
 
@@ -50,5 +50,5 @@ class BootstrapVerticalRendererV4 extends Tester\TestCase
 	}
 }
 
-$test = new BootstrapVerticalRendererV4;
+$test = new BootstrapVerticalRendererV4();
 $test->run();

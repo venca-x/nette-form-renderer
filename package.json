@@ -1,7 +1,7 @@
 {
   "name": "nette-form-renderer",
   "version": "1.0.0",
-  "description": "Nette form renderer (Twitter bootstrap v4)",
+  "description": "Nette form renderer (Twitter bootstrap v5 and v4)",
   "main": "gulpfile.js",
   "directories": {
     "test": "tests"

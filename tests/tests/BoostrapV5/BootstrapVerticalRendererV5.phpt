@@ -2,54 +2,46 @@
 
 declare(strict_types=1);
 
-namespace Test;
+namespace Test\BoostrapV5;
 
 use Nette\Forms\Form;
 use Tester;
 use Tester\Assert;
 use VencaX;
 
-require __DIR__ . '/../bootstrap.php';
+require __DIR__ . '/../../bootstrap.php';
 
-class BootstrapHorizontalRendererV4 extends Tester\TestCase
+class BootstrapVerticalRendererV5 extends Tester\TestCase
 {
 	private function createBaseFormWithRenderer()
 	{
-		$form = new Form;
-		$form->setRenderer(new VencaX\NetteFormRenderer\BootstrapRendererV4);
-
-		//horizontal form
-		$renderer = $form->getRenderer();
-		$renderer->setFormHorizontalOrientation();
-
+		$form = new Form();
+		$form->setRenderer(new VencaX\NetteFormRenderer\BootstrapRendererV5());
 		return $form;
 	}
 
 
-	public function testHorizontalForm()
+	public function testVerticalForm()
 	{
 		$form = $this->createBaseFormWithRenderer();
 
 		$form = $this->addInputs($form);
 
-		Assert::matchFile(__DIR__ . '/../expected/bootstrap-v4/form-horizontal.html', (string) $form);
+		Assert::matchFile(__DIR__ . '/../../expected/bootstrap-v5/form-vertical.html', (string) $form);
 	}
 
 
-	public function testHorizontalFormSm6()
+	public function testVerticalTwoForm()
 	{
 		$form = $this->createBaseFormWithRenderer();
 
-		//horizontal form
+		//vertical form
 		$renderer = $form->getRenderer();
-		$renderer->setFormHorizontalOrientation();
-
-		$renderer->setFormControlLabelWidth('col-sm-6');
-		$renderer->setFormControlContainerWidth('col-sm-6');
+		$renderer->setFormVerticalOrientation();
 
 		$form = $this->addInputs($form);
 
-		Assert::matchFile(__DIR__ . '/../expected/bootstrap-v4/form-horizontal-sm-6.html', (string) $form);
+		Assert::matchFile(__DIR__ . '/../../expected/bootstrap-v5/form-vertical.html', (string) $form);
 	}
 
 
@@ -92,6 +84,7 @@ class BootstrapHorizontalRendererV4 extends Tester\TestCase
 
 		$form->addMultiUpload('multiUpload', 'Example multiUpload');
 
+
 		//sizes
 		$form->addEmail('formControlLg', '.form-control-lg')
 			->setHtmlAttribute('class', 'form-control-lg')
@@ -131,13 +124,13 @@ class BootstrapHorizontalRendererV4 extends Tester\TestCase
 	{
 		$form = $this->createBaseFormWithRenderer();
 
-		$form->addCheckbox('mondayCheckbox', 'Monday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
-		$form->addCheckbox('tuesdayCheckbox', 'Tuesday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
-		$form->addCheckbox('wednesdayCheckbox', 'Wednesday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
-		$form->addCheckbox('thurstdayCheckbox', 'Thurstday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
-		$form->addCheckbox('fridayCheckbox', 'Friday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
-		$form->addCheckbox('saturdayCheckbox', 'Saturday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
-		$form->addCheckbox('sundayCheckbox', 'Sunday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
+		$form->addCheckbox('mondayCheckbox', 'Monday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV5::FORM_CHECK_INLINE);
+		$form->addCheckbox('tuesdayCheckbox', 'Tuesday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV5::FORM_CHECK_INLINE);
+		$form->addCheckbox('wednesdayCheckbox', 'Wednesday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV5::FORM_CHECK_INLINE);
+		$form->addCheckbox('thurstdayCheckbox', 'Thurstday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV5::FORM_CHECK_INLINE);
+		$form->addCheckbox('fridayCheckbox', 'Friday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV5::FORM_CHECK_INLINE);
+		$form->addCheckbox('saturdayCheckbox', 'Saturday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV5::FORM_CHECK_INLINE);
+		$form->addCheckbox('sundayCheckbox', 'Sunday')->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV5::FORM_CHECK_INLINE);
 
 		$form->addRadioList('weekRadio', 'Week radio', [
 			'monday' => 'Monday',
@@ -147,7 +140,7 @@ class BootstrapHorizontalRendererV4 extends Tester\TestCase
 			'friday' => 'Friday',
 			'saturday' => 'Saturday',
 			'sunday' => 'Sunday',
-		])->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV4::FORM_CHECK_INLINE);
+		])->setOption('orientation', VencaX\NetteFormRenderer\BootstrapRendererV5::FORM_CHECK_INLINE);
 
 		$html = (string) $form;
 
@@ -163,8 +156,8 @@ class BootstrapHorizontalRendererV4 extends Tester\TestCase
 		$this->checkInlineCheckbox($dom, 5, 'Saturday');
 		$this->checkInlineCheckbox($dom, 6, 'Sunday');
 
-		Assert::same('form-group row', (string) $dom->find('div.form-group')[7]->attributes()['class']);
-		Assert::same('Week radio', (string) $dom->find('div.form-group.row div.col-sm-3.col-form-label label')[0]);
+		Assert::same('Week radio', (string) $dom->find('fieldset legend label')[0]);
+		Assert::same('form-check form-check-inline', (string) $dom->find('div.form-check')[8]->attributes()['class']);
 		$this->checkInlineRadio($dom, 7, 'Monday');
 		$this->checkInlineRadio($dom, 8, 'Tuesday');
 		$this->checkInlineRadio($dom, 9, 'Wednesday');
@@ -174,9 +167,40 @@ class BootstrapHorizontalRendererV4 extends Tester\TestCase
 	}
 
 
+	public function testVerticalInlineForm()
+	{
+		$form = $this->createBaseFormWithRenderer();
+
+		//inline form
+		$renderer = $form->getRenderer();
+		$renderer->setFormInline();
+
+		$form->addEmail('loginemail', 'E-mail address:')
+			->setHtmlAttribute('placeholder', 'Enter e-mail');
+		$form->addPassword('password', 'Password')
+			->setHtmlAttribute('placeholder', 'Password');
+		$form->addCheckbox('checkbox', 'Check me out');
+
+		$form->addSubmit('submit', 'Login')->setHtmlAttribute('class', 'btn btn-primary');
+
+		$html = (string) $form;
+
+		//Assert::same('', (string) $html);
+
+		$dom = Tester\DomQuery::fromHtml($html);
+
+		Assert::same('form-inline', (string) $dom->find('form.form-inline')[0]->attributes()['class']);
+
+		Assert::same('form-control mb-2 mr-sm-2 mb-sm-0', (string) $dom->find('input')[0]->attributes()['class']);
+		Assert::same('form-control mb-2 mr-sm-2 mb-sm-0', (string) $dom->find('input')[1]->attributes()['class']);
+		Assert::same('form-check-input', (string) $dom->find('input')[2]->attributes()['class']);
+		Assert::same('mb-3 form-check mb-2 mr-sm-2 mb-sm-0', (string) $dom->find('div')[2]->attributes()['class']);
+	}
+
+
 	private function checkInlineCheckbox($dom, $position, $label)
 	{
-		Assert::contains('form-group row', (string) $dom->find('div.form-group.row')[$position]->attributes()['class']);
+		Assert::contains('form-check form-check-inline', (string) $dom->find('div.form-check.form-check-inline')[$position]->attributes()['class']);
 		Assert::same($label, (string) $dom->find('div label')[$position]);
 		Assert::contains('form-check-label', (string) $dom->find('div label')[$position]->attributes()['class']);
 		Assert::contains('form-check-input', (string) $dom->find('div input')[$position]->attributes()['class']);
@@ -185,11 +209,11 @@ class BootstrapHorizontalRendererV4 extends Tester\TestCase
 
 	private function checkInlineRadio($dom, $position, $label)
 	{
-		Assert::contains($label, (string) $dom->find('div.form-group.row div.col-sm-9 label')[$position]);
-		Assert::contains('form-check-label', (string) $dom->find('div.form-group.row div.col-sm-9 label')[$position]->attributes()['class']);
-		Assert::contains('form-check-input', (string) $dom->find('div.form-group.row div.col-sm-9 input')[$position]->attributes()['class']);
+		Assert::contains($label, (string) $dom->find('div.form-check label')[$position]);
+		Assert::contains('form-check-label', (string) $dom->find('div.form-check label')[$position]->attributes()['class']);
+		Assert::contains('form-check-input', (string) $dom->find('div input')[$position]->attributes()['class']);
 	}
 }
 
-$test = new BootstrapHorizontalRendererV4;
+$test = new BootstrapVerticalRendererV5();
 $test->run();
