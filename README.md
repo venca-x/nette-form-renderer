@@ -8,6 +8,12 @@
 
 Form renderer for Nette Forms - TwitterBootstrap v5 and v4
 
+| Version     | PHP&nbsp;&nbsp;&nbsp;&nbsp; | Recommended&nbsp;Nette        | Description |
+| ---         |-----------------------------| ---                           |-------------|
+| dev-master  | \>= 7.1                     | Nette 3.0 (Nette\SmartObject) | DEV         |
+| 1.1.x       | \>= 7.1                     | Nette 3.0 (Nette\SmartObject) | Add TBv5    |
+| 1.0.x       | \>= 7.1                     | Nette 3.0 (Nette\SmartObject) | Only TBv4   |
+
 ## Installation
 Install with composer:
 ```
