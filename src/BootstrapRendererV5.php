@@ -195,7 +195,6 @@ class BootstrapRendererV5 extends Nette\Forms\Rendering\DefaultFormRenderer
 					$pair = $this->getWrapper('pair container');
 				} else {
 					$pair = $this->getWrapper('pair container');
-					//@TODO how to set many checkboxes on same line? problem...
 				}
 			}
 
@@ -342,12 +341,6 @@ class BootstrapRendererV5 extends Nette\Forms\Rendering\DefaultFormRenderer
 				$ids = [];
 				$values = [];
 
-				if ($control->generateId) {
-					foreach ($items as $value => $label) {
-						$ids[$value] = $input->id . '-' . $value;
-						$values[$value] = $value;
-					}
-				}
 				$elControl = $control->getContainerPrototype()->setHtml(
 					Nette\Forms\Helpers::createInputList(
 						$control->translate($items),
