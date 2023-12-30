@@ -41,7 +41,7 @@ class BootstrapRendererV5 extends Nette\Forms\Rendering\DefaultFormRenderer
 
 		$this->wrappers['controls']['container'] = null;
 		if ($this->isFormVerticalOrientation()) {
-			$this->wrappers['pair']['container'] = 'div class="mb-3"'; //vertical
+			$this->wrappers['pair']['container'] = 'div class="' . $this->formVerticalDivMb . '"'; //vertical
 		} else {
 			$this->wrappers['pair']['container'] = 'div class="form-group row"'; //horizontal
 		}
@@ -314,7 +314,6 @@ class BootstrapRendererV5 extends Nette\Forms\Rendering\DefaultFormRenderer
 			if ($control instanceof Nette\Forms\Controls\Checkbox) {
 				$control->getLabelPrototype()->addClass('form-check-label');
 			} else {
-				$control->getItemLabelPrototype()->addClass('form-check');
 				$control->getItemLabelPrototype()->addClass('form-check-label');
 			}
 			$control->getControlPrototype()->addClass('form-check-input');
@@ -360,9 +359,8 @@ class BootstrapRendererV5 extends Nette\Forms\Rendering\DefaultFormRenderer
 							//'data-nette-rules:' => [key($items) => $input->attrs['data-nette-rules']],
 						]),
 						['for:' => $ids] + $control->getItemLabelPrototype()->attrs,
-						//$control->getSeparatorPrototype()
-						Html::el('div'),
-					),
+						$this->getWrapper('control checkbox')
+					)
 				);
 
 				$el = Html::el('fieldset')->addClass('form-group');
