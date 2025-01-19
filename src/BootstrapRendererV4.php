@@ -134,7 +134,7 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 			$label = $control->getLabelPart($key)->addClass('form-check-label'); //label
 
 			$formCheck = Html::el('div')->addClass('form-check');
-			if ($control->getOption('orientation', null) == self::FORM_CHECK_INLINE) {
+			if (($control->getOption('orientation') ?? null) == self::FORM_CHECK_INLINE) {
 				$formCheck->class(self::FORM_CHECK_INLINE, true);
 			}
 
@@ -155,7 +155,7 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 	{
 		if (
 			$control->getOption('type') === 'radio'
-			&& $control->getOption('orientation', null) == self::FORM_CHECK_INLINE
+			&& ($control->getOption('orientation') ?? null) == self::FORM_CHECK_INLINE
 		) {
 			$radios = Html::el(null);
 
@@ -182,12 +182,12 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 			if ($this->isFormVerticalOrientation()) {
 				//default vertical orientation
 				$pair = Html::el('div')->addClass('form-check');
-				if ($control->getOption('orientation', null) == self::FORM_CHECK_INLINE) {
+				if (($control->getOption('orientation') ?? null) == self::FORM_CHECK_INLINE) {
 					$pair->class(self::FORM_CHECK_INLINE, true);
 				}
 			} else {
 				//horizontal formular (2 colms)
-				if ($control->getOption('orientation', null) == self::FORM_CHECK_INLINE) {
+				if (($control->getOption('orientation') ?? null) == self::FORM_CHECK_INLINE) {
 					$pair = $this->getWrapper('pair container');
 				} else {
 					$pair = $this->getWrapper('pair container');
@@ -321,7 +321,7 @@ class BootstrapRendererV4 extends Nette\Forms\Rendering\DefaultFormRenderer
 					$el = $this->getWrapper('control checkbox');
 				}
 
-				if ($control->getOption('orientation', null) == self::FORM_CHECK_INLINE) {
+				if (($control->getOption('orientation') ?? null) == self::FORM_CHECK_INLINE) {
 					$el->class(self::FORM_CHECK_INLINE, true);
 				}
 
